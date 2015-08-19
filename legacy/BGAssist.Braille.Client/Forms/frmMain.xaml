@@ -1,0 +1,192 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="BGAssist.Braille.Client.frmMain"
+        xmlns:Controls="clr-namespace:BGAssist.Braille.Client.Controls"
+        xmlns:local ="clr-namespace:BGAssist.Braille.Client"
+        Title="Braille Editor" AutomationProperties.HelpText="Braille Word Processor" AutomationProperties.Name="Braille Editor"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="/BGAssist.Braille.Client;component/Resources/favicon.ico"
+        xml:lang="bg-BG" KeyDown="Window_KeyDown">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:FormatCommand.ShortCut_AddVolume}"
+                        Executed="MenuItem_Click_NewVolume"
+                        />
+        <CommandBinding Command="{x:Static local:FormatCommand.ShortCut_AddSection}"
+                        Executed="MenuItem_Click_NewSection"
+                        />
+        <CommandBinding Command="{x:Static local:FormatCommand.ShortCut_AddParagraph}"
+                        Executed="MenuItem_Click_NewParagraph"
+                        />
+
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{x:Static local:FormatCommand.ShortCut_AddVolume}" Gesture="CTRL+SHIFT+ALT+ENTER" />
+        <KeyBinding Command="{x:Static local:FormatCommand.ShortCut_AddSection}" Gesture="CTRL+SHIFT+ENTER" />
+        <KeyBinding Command="{x:Static local:FormatCommand.ShortCut_AddParagraph}" Gesture="CTRL+ENTER" />
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem InputGestureText="Ctrl + N" Header="New" Click="MenuItem_Click_DeleteSection" AutomationProperties.Name="New. Ctrl + N" />
+                <MenuItem InputGestureText="Ctrl + O" Header="Open" Click="MenuItem_Click_Open" AutomationProperties.Name="Open file. Ctrl + O"/>
+                <MenuItem InputGestureText="Ctrl + S" Header="Save" Click="MenuItem_Click_Save" AutomationProperties.Name="Save file. Ctrl + S "/>
+                <MenuItem InputGestureText="Ctrl + Shift + S" Header="Save As.." Click="SaveAs_Click" AutomationProperties.Name="Save file as. Ctrl + Shift + S"/>
+                <Separator />
+                <MenuItem InputGestureText="Ctrl + P" Header="Print" Click="MenuItem_Click_Print" AutomationProperties.Name="Print. Ctrl + P"/>
+                <MenuItem Click="MenuItem_Click_Embos" InputGestureText="Ctrl + E" Header="Emboss" AutomationProperties.Name="Emboss. Ctrl + E"/>
+                <Separator />
+                <MenuItem InputGestureText="Ctrl + R" Header="Recent Files" AutomationProperties.Name="Recent files. Ctrl + R"/>
+                <MenuItem x:Name="btnExit" InputGestureText="Alt + F4" Header="Exit" Click="Exit_Click" AutomationProperties.Name="Exit. Alt + F4"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem InputGestureText="Ctrl + Z" Header="Undo" AutomationProperties.Name="Undo. Ctrl + Z"/>
+                <MenuItem InputGestureText="Ctrl + Y" Header="Redo" AutomationProperties.Name="Redo. Ctrl + Y"/>
+                <MenuItem InputGestureText="Ctrl + X" Header="Cut" AutomationProperties.Name="Cut. Ctrl + X"/>
+                <MenuItem InputGestureText="Ctrl + C" Header="Copy" AutomationProperties.Name="Copy. Ctrl + C"/>
+                <MenuItem InputGestureText="Ctrl + V" Header="Paste" AutomationProperties.Name="Paste. Ctrl + V"/>
+                <Separator />
+                <MenuItem InputGestureText="Ctrl + Shift + C" Header="Copy Formatted" AutomationProperties.Name="Copy Formatted. Ctrl + Shift + C"/>
+                <MenuItem InputGestureText="Ctrl + Shift + V" Header="Paste Formatted" AutomationProperties.Name="Paste Formatted. Ctrl + Shift + V"/>
+                <Separator />
+                <MenuItem Header="Select">
+                    <MenuItem InputGestureText="Ctrl + Shift + Right Arrow" Header="Word" AutomationProperties.Name="Select word. Ctrl + Shift + Right Arrow"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + L" Header="Line" AutomationProperties.Name="Select line. Ctrl + Shift + L"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + P" Header="Paragraph" AutomationProperties.Name="Select paragraph. Ctrl + Shift + P"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + B" Header="Section" AutomationProperties.Name="Select section. Ctrl + Shift + B"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + A" Header="Volume" AutomationProperties.Name="Select volume. Ctrl + Shift + A"/>
+                    <MenuItem InputGestureText="Ctrl + A" Header="Document" AutomationProperties.Name="Select document. Ctrl + A"/>
+                </MenuItem>
+                <MenuItem Header="Insert">
+                    <MenuItem InputGestureText="Ctrl + Enter" Header="Page Break"  Click="MenuItem_Click_NewParagraph" AutomationProperties.Name="Insert page Break. Ctrl + Enter" />
+                    <MenuItem InputGestureText="Ctrl + Shift + Enter" Header="Section Break"  Click="MenuItem_Click_NewSection" AutomationProperties.Name="Insert section Break. Ctrl + Shift + Enter"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + Alt + Enter" Header="Volume Break" Click="MenuItem_Click_NewVolume" AutomationProperties.Name="Insert volume Break. Ctrl + Shift + Alt + Enter" />
+                </MenuItem>
+                <MenuItem Header="Delete">
+                    <MenuItem InputGestureText="Del" Header="Selection" AutomationProperties.Name="Delete selection"/>
+                    <MenuItem InputGestureText="Ctrl + Del" Header="Word" AutomationProperties.Name="Delete word. Ctrl + Del"/>
+                    <MenuItem InputGestureText="Ctrl + L" Header="Line" AutomationProperties.Name="Delete line. Ctrl + L"/>
+                    <MenuItem InputGestureText="Ctrl + P" Header="Paragraph" AutomationProperties.Name="Delete paragraph. Ctrl + P"/>
+                    <MenuItem InputGestureText="Ctrl + B" Header="Section Content" AutomationProperties.Name="Delete section content. Ctrl + B"/>
+                    <MenuItem InputGestureText="Ctrl + J" Header="Volume Content" AutomationProperties.Name="Delete volume content. Ctrl + J"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + B" Header="Next Section Break" AutomationProperties.Name="Delete next section break. Ctrl + Shift + B"/>
+                    <MenuItem InputGestureText="Ctrl + Shift + J" Header="Next Volume Break" AutomationProperties.Name="Delete next volume break. Ctrl + Shift + J"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem InputGestureText="Ctrl + Alt + P" Header="Preferences" Click="MenuItem_Click_Preferences" AutomationProperties.Name="Preferences. Ctrl + Alt + P">
+                    
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Format">
+                <MenuItem InputGestureText="Ctrl + K + S" Header="Symbol" AutomationProperties.Name="Symbol. Ctrl + K + S"/>
+                <MenuItem InputGestureText="Ctrl + K + P" Header="Paragraph" AutomationProperties.Name="Paragraph. Ctrl + K + P"/>
+                <MenuItem InputGestureText="Ctrl + K + D" Header="Page Template" AutomationProperties.Name="Page template. Ctrl + K + D"/>
+            </MenuItem>
+            <MenuItem Header="Navigate">
+                <MenuItem InputGestureText="Ctrl + Shift + F" Header="Search And Replace" AutomationProperties.Name="Search And Replace. Ctrl + Shift + F"/>
+                <MenuItem InputGestureText="F6" Header="Search Next" Click="MenuItem_Click_F6" AutomationProperties.Name="Search next. F6"/>
+                <MenuItem InputGestureText="Ctrl + F6" Header="Search Previous" AutomationProperties.Name="Search previous. Ctrl + F6"/>
+                <MenuItem InputGestureText="Ctrl + F3" Header="Search Selection Forward" AutomationProperties.Name="Search Selection Forward. Ctrl + F3"/>
+                <MenuItem InputGestureText="Ctrl + Shift + F3" Header="Search Selection Backward" AutomationProperties.Name="Search Selection Backward. Ctrl + Shift + F3"/>
+                <MenuItem InputGestureText="" Header="Search Presets" AutomationProperties.Name="Search presets">
+                    <MenuItem Header="Search Next">
+                        <MenuItem InputGestureText="" Header="Text 1" />
+                        <MenuItem InputGestureText="" Header="Text 2" />
+                        <MenuItem InputGestureText="" Header="Text 3" />
+                        <MenuItem InputGestureText="" Header="Text 4" />
+                        <MenuItem InputGestureText="" Header="Text 5" />
+                        <MenuItem InputGestureText="" Header="Text 6" />
+                        <MenuItem InputGestureText="" Header="Text 7" />
+                        <MenuItem InputGestureText="" Header="Text 8" />
+                        <MenuItem InputGestureText="" Header="Text 9" />
+                        <MenuItem InputGestureText="" Header="Text 10" />
+                    </MenuItem>
+                    <MenuItem Header="Search Previews">
+                        <MenuItem InputGestureText="" Header="Text 1" />
+                        <MenuItem InputGestureText="" Header="Text 2" />
+                        <MenuItem InputGestureText="" Header="Text 3" />
+                        <MenuItem InputGestureText="" Header="Text 4" />
+                        <MenuItem InputGestureText="" Header="Text 5" />
+                        <MenuItem InputGestureText="" Header="Text 6" />
+                        <MenuItem InputGestureText="" Header="Text 7" />
+                        <MenuItem InputGestureText="" Header="Text 8" />
+                        <MenuItem InputGestureText="" Header="Text 9" />
+                        <MenuItem InputGestureText="" Header="Text 10" />
+                    </MenuItem>
+                    <MenuItem Header="Search Preset">
+                        <MenuItem InputGestureText="" Header="Preset 1" />
+                        <MenuItem InputGestureText="" Header="Preset 2" />
+                        <MenuItem InputGestureText="" Header="Preset 3" />
+                        <MenuItem InputGestureText="" Header="Preset 4" />
+                        <MenuItem InputGestureText="" Header="Preset 5" />
+                        <MenuItem InputGestureText="" Header="Preset 6" />
+                        <MenuItem InputGestureText="" Header="Preset 7" />
+                        <MenuItem InputGestureText="" Header="Preset 8" />
+                        <MenuItem InputGestureText="" Header="Preset 9" />
+                        <MenuItem InputGestureText="" Header="Preset 10" />
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem InputGestureText="Ctrl + Alt + F" Header="Edit Search Presets..." AutomationProperties.Name="Edit Search Presets. Ctrl + Alt + F"/>
+                <MenuItem Header="Bookmarks">
+                    <MenuItem Header="Go To">
+                        <MenuItem InputGestureText="" Header="Bookmark 1" />
+                        <MenuItem InputGestureText="" Header="Bookmark 2" />
+                        <MenuItem InputGestureText="" Header="Bookmark 3" />
+                        <MenuItem InputGestureText="" Header="Bookmark 4" />
+                        <MenuItem InputGestureText="" Header="Bookmark 5" />
+                        <MenuItem InputGestureText="" Header="Bookmark 6" />
+                        <MenuItem InputGestureText="" Header="Bookmark 7" />
+                        <MenuItem InputGestureText="" Header="Bookmark 8" />
+                        <MenuItem InputGestureText="" Header="Bookmark 9" />
+                        <MenuItem InputGestureText="" Header="Bookmark 10" />
+                    </MenuItem>
+                    <MenuItem Header="Toggle">
+                        <MenuItem InputGestureText="" Header="Bookmark 1" />
+                        <MenuItem InputGestureText="" Header="Bookmark 2" />
+                        <MenuItem InputGestureText="" Header="Bookmark 3" />
+                        <MenuItem InputGestureText="" Header="Bookmark 4" />
+                        <MenuItem InputGestureText="" Header="Bookmark 5" />
+                        <MenuItem InputGestureText="" Header="Bookmark 6" />
+                        <MenuItem InputGestureText="" Header="Bookmark 7" />
+                        <MenuItem InputGestureText="" Header="Bookmark 8" />
+                        <MenuItem InputGestureText="" Header="Bookmark 9" />
+                        <MenuItem InputGestureText="" Header="Bookmark 10" />
+                    </MenuItem>
+                    <MenuItem InputGestureText="Ctrl + K + L" Header="Clear All Bookmarks" AutomationProperties.Name="Clear All Bookmarks. Ctrl + K + L"/>
+                </MenuItem>
+                <MenuItem InputGestureText="Ctrl + B + Right Arrow" Header="Next Section" AutomationProperties.Name="Next Section. Ctrl + B + Right Arrow"/>
+                <MenuItem InputGestureText="Ctrl + B + Left Arrow" Header="Prev Section" AutomationProperties.Name="Previous Section. Ctrl + B + Left Arrow"/>
+                <MenuItem InputGestureText="Ctrl + J + Right Arrow" Header="Next Volume" AutomationProperties.Name="Next Volume. Ctrl + J + Right Arrow"/>
+                <MenuItem InputGestureText="Ctrl + J + Left Arrow" Header="Prev Volume" AutomationProperties.Name="Previous Volume. Ctrl + J + Left Arrow"/>
+                <MenuItem InputGestureText="Ctrl + H + Left Arrow" Header="Back In Navigation Stack" AutomationProperties.Name="Back In Navigation Stack. Ctrl + H + Left Arrow"/>
+                <MenuItem InputGestureText="Ctrl + H + Right Arrow" Header="Forward In Navigation Stack" AutomationProperties.Name="Forward In Navigation Stack. Ctrl + H + Right Arrow"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem InputGestureText="Ctrl + 1" Header="Structure TreeView" AutomationProperties.Name="Structure TreeView. Ctrl + 1"/>
+                <MenuItem InputGestureText="Ctrl + 2" Header="Text Editor" AutomationProperties.Name="Text Editor. Ctrl + 2"/>
+                <MenuItem InputGestureText="Ctrl + 3" Header="Braille Window" AutomationProperties.Name="Braille Window. Ctrl + 3"/>
+                <MenuItem InputGestureText="Ctrl + Tab" Header="Next Tab" AutomationProperties.Name="Next Tab. Ctrl + Tab"/>
+                <MenuItem InputGestureText="Ctrl + Shift + Tab" Header="Prev Tab" AutomationProperties.Name="Previous Tab. Ctrl + Shift + Tab"/>
+                <MenuItem InputGestureText="" Header="Switch Main Tabs" AutomationProperties.Name="Switch Main Tabs. "/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem InputGestureText="Ctrl + E" Header="Options" AutomationProperties.Name="Options. Ctrl + E"/>
+                <MenuItem InputGestureText="Ctrl + ." Header="Import" AutomationProperties.Name="Import. Ctrl + ."/>
+                <MenuItem InputGestureText="Ctrl + Shift + ." Header="Export" Click="Export_Document" AutomationProperties.Name="Export. Ctrl + Shift + ."/>
+                <MenuItem InputGestureText="" Header="Convert" Click="MenuItem_Convert" AutomationProperties.Name="Convert text to braille"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem InputGestureText="F1" Header="Help content" AutomationProperties.Name="Help content. F1"/>
+                <MenuItem InputGestureText="F2" Header="About" AutomationProperties.Name="About. F2"/>
+            </MenuItem>
+        </Menu>
+        
+        <TabControl SelectionChanged="SelectedTabChanged" x:Name="Tabs" x:FieldModifier="public" DockPanel.Dock="Top" Grid.Row="2" />
+        <StatusBar Name="StatusBar" VerticalAlignment="Bottom" Height="26" Grid.Row="3" DockPanel.Dock="Bottom">Ready</StatusBar>
+    </Grid>
+</Window>

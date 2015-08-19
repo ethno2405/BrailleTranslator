@@ -1,0 +1,6 @@
+index braille
+index everest
+index braillebopx
+4waves pro
+
+Extension of the braille formats for theese printers are BRF and ,,,

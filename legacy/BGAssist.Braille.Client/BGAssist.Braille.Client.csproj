@@ -1,0 +1,1402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B326A0AD-1869-4A62-AFA0-8398FFD0E1E0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BGAssist.Braille.Client</RootNamespace>
+    <AssemblyName>BGAssist.Braille.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>http://www.bgassist.com/support</SupportUrl>
+    <ErrorReportUrl>http://www.bgassist.com/support</ErrorReportUrl>
+    <TargetCulture>en-US</TargetCulture>
+    <ProductName>Braille Editor</ProductName>
+    <PublisherName>BGAssist</PublisherName>
+    <SuiteName>Braille Editor</SuiteName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>BGAssist.Braille.Client.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="CanExecutedRoutedEventArgs.cs" />
+    <Compile Include="Forms\frmNewInput.xaml.cs">
+      <DependentUpon>frmNewInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPageSettings.xaml.cs">
+      <DependentUpon>frmPageSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\Box.cs" />
+    <Compile Include="Controls\ContainerBox.xaml.cs">
+      <DependentUpon>ContainerBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContentBox.xaml.cs">
+      <DependentUpon>ContentBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabContent.xaml.cs">
+      <DependentUpon>TabContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormatCommand.cs" />
+    <Compile Include="Logic\DocumentStructure\BlockType.cs" />
+    <Compile Include="Logic\DocumentStructure\Document.cs" />
+    <Compile Include="Logic\DocumentStructure\InlineType.cs" />
+    <Compile Include="Logic\DocumentStructure\Section.cs" />
+    <Compile Include="Logic\DocumentStructure\Volume.cs" />
+    <Compile Include="Logic\DocumentStructure\XmlManipulator.cs" />
+    <Compile Include="Logic\FontCollection.cs" />
+    <Compile Include="Logic\Helpers\Tests.cs" />
+    <Compile Include="Logic\Common\Log.cs" />
+    <Compile Include="Logic\Translation\BRF\LibLouis.cs" />
+    <Compile Include="Logic\Translation\BRF\LouConverter.cs" />
+    <Compile Include="Logic\Translation\HTML\HTMLTranslator.cs" />
+    <Compile Include="Logic\Translation\PageManager.cs" />
+    <Compile Include="Logic\Translation\Translator.cs" />
+    <Compile Include="Logic\Translation\Tree\TreeTranslator.cs" />
+    <Compile Include="Logic\TreeViewTools.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ContainerBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ContentBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TabContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmNewInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\frmPageSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.xaml.cs">
+      <DependentUpon>frmMain.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Resource Include="Resources\convert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\dll\liblouis-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\tables\ar-ar-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ar-fa.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\as.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\awa.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bengali.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bg-litbrl.ctb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bg.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bh.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bn.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bo.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\boxes.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\bra.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\braille-patterns.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ca-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ca-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\chardefs-ueb.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ckb-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ckb-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ckb-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\compress.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\controlchars.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\corrections.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\countries.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\cs-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\cs-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\cs-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\cy-cy-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\cy-cy-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Cz-Cz-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da-1252.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da-dk-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da-dk-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da-dk.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da-lt.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\da.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-ch-accents.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-ch-g0.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-ch-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-ch-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-chardefs6.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-chardefs8.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-chess.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de-accents.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de-comp8.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de-g0.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-de.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-eurobrl6.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-eurobrl6u.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-g0-core.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-g1-core.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\de-g2-core.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\devanagari.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\digits6Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\digits6DotsPlusDot6.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\digits8Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\dra.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-chess.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-gb-comp8.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-gb-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-GB-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-ueb-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-ueb-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-brf.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-comp6.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-comp8.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-compbrl.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-interline.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en-us-mathtext.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\en_CA.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\eo-g1-x-system.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\eo-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\es-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Es-Es-G0.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Es-Es-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\es-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\es-new.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\es-old.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\es-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\et-g0.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\et.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ethio-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\eurodefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fi-fi-8dot.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fi-fi.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fi1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fi2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-2007.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-bfu-comp6.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-bfu-comp8.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-bfu-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-ca-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Fr-Ca-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\fr-fr-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Fr-Fr-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ga.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gd.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gon.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gr-bb.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gr-gr-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gu.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gujarati.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\gurmukhi.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\he.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hi-in-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hi.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hr.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hu-backtranslate-correction.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hu-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hu-exceptionwords.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hu-hu-comp8.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hu-hu-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hy.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_cs_CZ.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_da_DK.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_de_DE.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_en_US.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_eo.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_es_ES.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_fr_FR.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_hu_HU.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_it_IT.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_nb_NO.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_nl_NL.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_nn_NO.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_pl_PL.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_pt_PT.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_ru.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\hyph_sv_SE.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\is-chardefs6.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\is-chardefs8.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\is.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\it-it-comp6.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\it-it-comp8.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\iu-ca-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\kannada.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\kha.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\kn.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ko-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ko-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ko.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\kok.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\kru.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\latinLetterDef6Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\latinLetterDef8Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\litdigits6Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\loweredDigits6Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\loweredDigits8Dots.uti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\lt.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Lv-Lv-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\malayalam.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\marburg.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\marburg_edit.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\marburg_single_cell_defs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\marburg_unicode_defs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ml.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\mni.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\mr.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\mt.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\mun.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\mwr.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ne.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nemeth.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nemethdefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nemeth_edit.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\new.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nl-BE-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nl-BE-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nl-be-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nl-BE-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\nl-BE.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Nl-Nl-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-g0.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-g3.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-generic.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no-generic.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\no-no.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\or.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\oriya.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\pa.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\pi.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Pl-Pl-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\printables.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\pt-pt-comp8.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\pt-pt-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\pt-pt-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ro.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-compbrl.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-letters.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-litbrl.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-ru-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru-ru.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ru.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sa.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sat.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sd.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\Se-Se-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\se-se.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\se-se.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sk-sk-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sk-sk.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sl-si-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\spaces.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sr-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sr-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sr-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sv-1989.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\sv-1996.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ta-ta-g1.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ta.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\tamil.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\te.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\telugu.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\text_nabcc.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\tr.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\UEBC-g1.utb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\UEBC-g2.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ukchardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ukmaths.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ukmaths_edit.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ukmaths_single_cell_defs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\ukmaths_unicode_defs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\uni-text.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\unicode.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\unicodedefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\us-table.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\vi.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\wiskunde-chardefs.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\wiskunde-translation.cti">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\wiskunde.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\zh-hk.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tables\zh-tw.ctb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\separator.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\normaltext.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\listnumbers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\listbullets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\indentincrease.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\indentdecrease.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fontunderline.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fontshrink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fontitalic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fontgrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fontbold.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\filesave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\editundo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\editredo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\editpaste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\editcut.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\editcopy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\codeinline.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\codeblock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\alignright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\alignleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\alignjustify.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\aligncenter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Logic\Translation\Tree\FlowDocumentTree.xslt">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Logic\Translation\Tree\TreeFlowDocument.xslt">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Logic\Translation\HTML\FlowDocumentHTML.xslt" />
+    <Resource Include="Logic\Translation\HTML\HTMLFlowDocument.xslt" />
+    <Content Include="bin\Debug\liblouis-2.dll" />
+    <Content Include="bin\Debug\lou_allround.exe" />
+    <Content Include="bin\Debug\lou_checkhyphens.exe" />
+    <Content Include="bin\Debug\lou_checktable.exe" />
+    <Content Include="bin\Debug\lou_debug.exe" />
+    <Content Include="bin\Debug\lou_trace.exe" />
+    <Content Include="bin\Debug\lou_translate.exe" />
+    <Resource Include="Documents\Fonts\BG_alphabet_in_braille.jpg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_A1.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_AND.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_B2.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Bracket.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_C3.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Colon.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Comma.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_D4.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_DecimalPoint.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_E5.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_ExclamationPoint.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_F6.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_G7.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_H8.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_I9.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_J0.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_K.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_L.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_M.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_N.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_NULL.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_NumberSign.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_O.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_P.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Period.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Q.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_QuestionMark.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_QuoteClose.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_QuoteOpen.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_R.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_S.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Semicolon.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_T.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_U.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_W.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_X.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Y.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Z.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_À.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Ë.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Ù.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Û.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Braille_Ü.svg" />
+    <Content Include="Documents\Fonts\Cyrilic Font\Font.svg" />
+    <Resource Include="Documents\Fonts\numbers.jpg" />
+    <Resource Include="Documents\Fonts\punctuation_marks.jpg" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="bin\Debug\lou_harnessGenerator" />
+    <None Include="bin\Debug\tables\ar-ar-g1.utb" />
+    <None Include="bin\Debug\tables\ar-fa.utb" />
+    <None Include="bin\Debug\tables\as.ctb" />
+    <None Include="bin\Debug\tables\awa.ctb" />
+    <None Include="bin\Debug\tables\bengali.cti" />
+    <None Include="bin\Debug\tables\bg.ctb" />
+    <None Include="bin\Debug\tables\bh.ctb" />
+    <None Include="bin\Debug\tables\bn.ctb" />
+    <None Include="bin\Debug\tables\bo.ctb" />
+    <None Include="bin\Debug\tables\boxes.ctb" />
+    <None Include="bin\Debug\tables\bra.ctb" />
+    <None Include="bin\Debug\tables\braille-patterns.cti" />
+    <None Include="bin\Debug\tables\ca-chardefs.cti" />
+    <None Include="bin\Debug\tables\ca-g1.ctb" />
+    <None Include="bin\Debug\tables\chardefs-ueb.cti" />
+    <None Include="bin\Debug\tables\chardefs.cti" />
+    <None Include="bin\Debug\tables\ckb-chardefs.cti" />
+    <None Include="bin\Debug\tables\ckb-g1.ctb" />
+    <None Include="bin\Debug\tables\ckb-translation.cti" />
+    <None Include="bin\Debug\tables\compress.cti" />
+    <None Include="bin\Debug\tables\controlchars.cti" />
+    <None Include="bin\Debug\tables\corrections.cti" />
+    <None Include="bin\Debug\tables\countries.cti" />
+    <None Include="bin\Debug\tables\cs-chardefs.cti" />
+    <None Include="bin\Debug\tables\cs-g1.ctb" />
+    <None Include="bin\Debug\tables\cs-translation.cti" />
+    <None Include="bin\Debug\tables\cy-cy-g1.utb" />
+    <None Include="bin\Debug\tables\cy-cy-g2.ctb" />
+    <None Include="bin\Debug\tables\Cz-Cz-g1.utb" />
+    <None Include="bin\Debug\tables\da-1252.ctb" />
+    <None Include="bin\Debug\tables\da-ansi6.dis" />
+    <None Include="bin\Debug\tables\da-ansi8.dis" />
+    <None Include="bin\Debug\tables\da-chardefs6.cti" />
+    <None Include="bin\Debug\tables\da-chardefs8.cti" />
+    <None Include="bin\Debug\tables\da-dk-g1.utb" />
+    <None Include="bin\Debug\tables\da-dk-g16.utb" />
+    <None Include="bin\Debug\tables\da-dk-g18.utb" />
+    <None Include="bin\Debug\tables\da-dk-g2.ctb" />
+    <None Include="bin\Debug\tables\da-dk-g26.ctb" />
+    <None Include="bin\Debug\tables\da-dk-g28.ctb" />
+    <None Include="bin\Debug\tables\da-dk-g28caps.cti" />
+    <None Include="bin\Debug\tables\da-dk-g2core.cti" />
+    <None Include="bin\Debug\tables\da-dk.dis" />
+    <None Include="bin\Debug\tables\da-lt.ctb" />
+    <None Include="bin\Debug\tables\da-unicode6.dis" />
+    <None Include="bin\Debug\tables\da-unicode8.dis" />
+    <None Include="bin\Debug\tables\da.ctb" />
+    <None Include="bin\Debug\tables\de-ch-accents.cti" />
+    <None Include="bin\Debug\tables\de-ch-g0.utb" />
+    <None Include="bin\Debug\tables\de-ch-g1.ctb" />
+    <None Include="bin\Debug\tables\de-ch-g2.ctb" />
+    <None Include="bin\Debug\tables\de-chardefs6.cti" />
+    <None Include="bin\Debug\tables\de-chardefs8.cti" />
+    <None Include="bin\Debug\tables\de-chess.ctb" />
+    <None Include="bin\Debug\tables\de-de-accents.cti" />
+    <None Include="bin\Debug\tables\de-de-comp8.ctb" />
+    <None Include="bin\Debug\tables\de-de-g0.utb" />
+    <None Include="bin\Debug\tables\de-de-g1.ctb" />
+    <None Include="bin\Debug\tables\de-de-g2.ctb" />
+    <None Include="bin\Debug\tables\de-de.dis" />
+    <None Include="bin\Debug\tables\de-eurobrl6.dis" />
+    <None Include="bin\Debug\tables\de-eurobrl6u.dis" />
+    <None Include="bin\Debug\tables\de-g0-core.uti" />
+    <None Include="bin\Debug\tables\de-g1-core.cti" />
+    <None Include="bin\Debug\tables\de-g2-core.cti" />
+    <None Include="bin\Debug\tables\devanagari.cti" />
+    <None Include="bin\Debug\tables\digits6Dots.uti" />
+    <None Include="bin\Debug\tables\digits6DotsPlusDot6.uti" />
+    <None Include="bin\Debug\tables\digits8Dots.uti" />
+    <None Include="bin\Debug\tables\dra.ctb" />
+    <None Include="bin\Debug\tables\en-chess.ctb" />
+    <None Include="bin\Debug\tables\en-gb-comp8.ctb" />
+    <None Include="bin\Debug\tables\en-gb-g1.utb" />
+    <None Include="bin\Debug\tables\en-GB-g2.ctb" />
+    <None Include="bin\Debug\tables\en-ueb-chardefs.uti" />
+    <None Include="bin\Debug\tables\en-ueb-g1.ctb" />
+    <None Include="bin\Debug\tables\en-ueb-g2.ctb" />
+    <None Include="bin\Debug\tables\en-us-brf.dis" />
+    <None Include="bin\Debug\tables\en-us-comp6.ctb" />
+    <None Include="bin\Debug\tables\en-us-comp8.ctb" />
+    <None Include="bin\Debug\tables\en-us-compbrl.ctb" />
+    <None Include="bin\Debug\tables\en-us-g1.ctb" />
+    <None Include="bin\Debug\tables\en-us-g2.ctb" />
+    <None Include="bin\Debug\tables\en-us-interline.ctb" />
+    <None Include="bin\Debug\tables\en-us-mathtext.ctb" />
+    <None Include="bin\Debug\tables\en_CA.ctb" />
+    <None Include="bin\Debug\tables\eo-g1-x-system.ctb" />
+    <None Include="bin\Debug\tables\eo-g1.ctb" />
+    <None Include="bin\Debug\tables\es-chardefs.cti" />
+    <None Include="bin\Debug\tables\Es-Es-G0.utb" />
+    <None Include="bin\Debug\tables\Es-Es-g1.utb" />
+    <None Include="bin\Debug\tables\es-g1.ctb" />
+    <None Include="bin\Debug\tables\es-new.dis" />
+    <None Include="bin\Debug\tables\es-old.dis" />
+    <None Include="bin\Debug\tables\es-translation.cti" />
+    <None Include="bin\Debug\tables\et-g0.utb" />
+    <None Include="bin\Debug\tables\et.ctb" />
+    <None Include="bin\Debug\tables\ethio-g1.ctb" />
+    <None Include="bin\Debug\tables\eurodefs.cti" />
+    <None Include="bin\Debug\tables\fi-fi-8dot.ctb" />
+    <None Include="bin\Debug\tables\fi-fi.ctb" />
+    <None Include="bin\Debug\tables\fi1.ctb" />
+    <None Include="bin\Debug\tables\fi2.ctb" />
+    <None Include="bin\Debug\tables\fr-2007.ctb" />
+    <None Include="bin\Debug\tables\fr-bfu-comp6.utb" />
+    <None Include="bin\Debug\tables\fr-bfu-comp8.utb" />
+    <None Include="bin\Debug\tables\fr-bfu-g2.ctb" />
+    <None Include="bin\Debug\tables\fr-ca-g1.utb" />
+    <None Include="bin\Debug\tables\Fr-Ca-g2.ctb" />
+    <None Include="bin\Debug\tables\fr-fr-g1.utb" />
+    <None Include="bin\Debug\tables\Fr-Fr-g2.ctb" />
+    <None Include="bin\Debug\tables\ga.ctb" />
+    <None Include="bin\Debug\tables\gd.ctb" />
+    <None Include="bin\Debug\tables\gon.ctb" />
+    <None Include="bin\Debug\tables\gr-bb.ctb" />
+    <None Include="bin\Debug\tables\gr-gr-g1.utb" />
+    <None Include="bin\Debug\tables\gu.ctb" />
+    <None Include="bin\Debug\tables\gujarati.cti" />
+    <None Include="bin\Debug\tables\gurmukhi.cti" />
+    <None Include="bin\Debug\tables\he.ctb" />
+    <None Include="bin\Debug\tables\hi-in-g1.utb" />
+    <None Include="bin\Debug\tables\hi.ctb" />
+    <None Include="bin\Debug\tables\hr.ctb" />
+    <None Include="bin\Debug\tables\hu-backtranslate-correction.dis" />
+    <None Include="bin\Debug\tables\hu-chardefs.cti" />
+    <None Include="bin\Debug\tables\hu-exceptionwords.cti" />
+    <None Include="bin\Debug\tables\hu-hu-comp8.ctb" />
+    <None Include="bin\Debug\tables\hu-hu-g1.ctb" />
+    <None Include="bin\Debug\tables\hy.ctb" />
+    <None Include="bin\Debug\tables\hyph_cs_CZ.dic" />
+    <None Include="bin\Debug\tables\hyph_da_DK.dic" />
+    <None Include="bin\Debug\tables\hyph_de_DE.dic" />
+    <None Include="bin\Debug\tables\hyph_en_US.dic" />
+    <None Include="bin\Debug\tables\hyph_eo.dic" />
+    <None Include="bin\Debug\tables\hyph_es_ES.dic" />
+    <None Include="bin\Debug\tables\hyph_fr_FR.dic" />
+    <None Include="bin\Debug\tables\hyph_hu_HU.dic" />
+    <None Include="bin\Debug\tables\hyph_it_IT.dic" />
+    <None Include="bin\Debug\tables\hyph_nb_NO.dic" />
+    <None Include="bin\Debug\tables\hyph_nl_NL.dic" />
+    <None Include="bin\Debug\tables\hyph_nn_NO.dic" />
+    <None Include="bin\Debug\tables\hyph_pl_PL.dic" />
+    <None Include="bin\Debug\tables\hyph_pt_PT.dic" />
+    <None Include="bin\Debug\tables\hyph_ru.dic" />
+    <None Include="bin\Debug\tables\hyph_sv_SE.dic" />
+    <None Include="bin\Debug\tables\is-chardefs6.cti" />
+    <None Include="bin\Debug\tables\is-chardefs8.cti" />
+    <None Include="bin\Debug\tables\is.ctb" />
+    <None Include="bin\Debug\tables\it-it-comp6.utb" />
+    <None Include="bin\Debug\tables\it-it-comp8.utb" />
+    <None Include="bin\Debug\tables\iu-ca-g1.ctb" />
+    <None Include="bin\Debug\tables\kannada.cti" />
+    <None Include="bin\Debug\tables\kha.ctb" />
+    <None Include="bin\Debug\tables\kn.ctb" />
+    <None Include="bin\Debug\tables\ko-g1.ctb" />
+    <None Include="bin\Debug\tables\ko-g2.ctb" />
+    <None Include="bin\Debug\tables\ko.cti" />
+    <None Include="bin\Debug\tables\kok.ctb" />
+    <None Include="bin\Debug\tables\kru.ctb" />
+    <None Include="bin\Debug\tables\latinLetterDef6Dots.uti" />
+    <None Include="bin\Debug\tables\latinLetterDef8Dots.uti" />
+    <None Include="bin\Debug\tables\litdigits6Dots.uti" />
+    <None Include="bin\Debug\tables\loweredDigits6Dots.uti" />
+    <None Include="bin\Debug\tables\loweredDigits8Dots.uti" />
+    <None Include="bin\Debug\tables\lt.ctb" />
+    <None Include="bin\Debug\tables\Lv-Lv-g1.utb" />
+    <None Include="bin\Debug\tables\malayalam.cti" />
+    <None Include="bin\Debug\tables\marburg.ctb" />
+    <None Include="bin\Debug\tables\marburg_edit.ctb" />
+    <None Include="bin\Debug\tables\marburg_single_cell_defs.cti" />
+    <None Include="bin\Debug\tables\marburg_unicode_defs.cti" />
+    <None Include="bin\Debug\tables\ml.ctb" />
+    <None Include="bin\Debug\tables\mni.ctb" />
+    <None Include="bin\Debug\tables\mr.ctb" />
+    <None Include="bin\Debug\tables\mt.ctb" />
+    <None Include="bin\Debug\tables\mun.ctb" />
+    <None Include="bin\Debug\tables\mwr.ctb" />
+    <None Include="bin\Debug\tables\ne.ctb" />
+    <None Include="bin\Debug\tables\ne.utb" />
+    <None Include="bin\Debug\tables\nemeth.ctb" />
+    <None Include="bin\Debug\tables\nemethdefs.cti" />
+    <None Include="bin\Debug\tables\nemeth_edit.ctb" />
+    <None Include="bin\Debug\tables\new.ctb" />
+    <None Include="bin\Debug\tables\nl-BE-chardefs.cti" />
+    <None Include="bin\Debug\tables\nl-BE-g1.ctb" />
+    <None Include="bin\Debug\tables\nl-be-g1.utb" />
+    <None Include="bin\Debug\tables\nl-BE-translation.cti" />
+    <None Include="bin\Debug\tables\nl-BE.dis" />
+    <None Include="bin\Debug\tables\Nl-Nl-g1.utb" />
+    <None Include="bin\Debug\tables\no-no-g0.utb" />
+    <None Include="bin\Debug\tables\no-no-g1.ctb" />
+    <None Include="bin\Debug\tables\no-no-g2.ctb" />
+    <None Include="bin\Debug\tables\no-no-g3.ctb" />
+    <None Include="bin\Debug\tables\no-no-generic.ctb" />
+    <None Include="bin\Debug\tables\no-no-generic.dis" />
+    <None Include="bin\Debug\tables\no-no.ctb" />
+    <None Include="bin\Debug\tables\no-no.dis" />
+    <None Include="bin\Debug\tables\or.ctb" />
+    <None Include="bin\Debug\tables\oriya.cti" />
+    <None Include="bin\Debug\tables\pa.ctb" />
+    <None Include="bin\Debug\tables\pi.ctb" />
+    <None Include="bin\Debug\tables\Pl-Pl-g1.utb" />
+    <None Include="bin\Debug\tables\printables.cti" />
+    <None Include="bin\Debug\tables\pt-pt-comp8.ctb" />
+    <None Include="bin\Debug\tables\pt-pt-g1.utb" />
+    <None Include="bin\Debug\tables\pt-pt-g2.ctb" />
+    <None Include="bin\Debug\tables\ro.ctb" />
+    <None Include="bin\Debug\tables\ru-chardefs.cti" />
+    <None Include="bin\Debug\tables\ru-compbrl.ctb" />
+    <None Include="bin\Debug\tables\ru-letters.dis" />
+    <None Include="bin\Debug\tables\ru-litbrl.ctb" />
+    <None Include="bin\Debug\tables\ru-ru-g1.utb" />
+    <None Include="bin\Debug\tables\ru-ru.dis" />
+    <None Include="bin\Debug\tables\ru.ctb" />
+    <None Include="bin\Debug\tables\sa.ctb" />
+    <None Include="bin\Debug\tables\sat.ctb" />
+    <None Include="bin\Debug\tables\sd.ctb" />
+    <None Include="bin\Debug\tables\Se-Se-g1.utb" />
+    <None Include="bin\Debug\tables\se-se.ctb" />
+    <None Include="bin\Debug\tables\se-se.dis" />
+    <None Include="bin\Debug\tables\sk-sk-g1.utb" />
+    <None Include="bin\Debug\tables\sk-sk.utb" />
+    <None Include="bin\Debug\tables\sl-si-comp8.ctb" />
+    <None Include="bin\Debug\tables\sl-si-g1.utb" />
+    <None Include="bin\Debug\tables\spaces.ctb" />
+    <None Include="bin\Debug\tables\sr-chardefs.cti" />
+    <None Include="bin\Debug\tables\sr-g1.ctb" />
+    <None Include="bin\Debug\tables\sr-translation.cti" />
+    <None Include="bin\Debug\tables\sv-1989.ctb" />
+    <None Include="bin\Debug\tables\sv-1996.ctb" />
+    <None Include="bin\Debug\tables\ta-ta-g1.ctb" />
+    <None Include="bin\Debug\tables\ta.ctb" />
+    <None Include="bin\Debug\tables\tamil.cti" />
+    <None Include="bin\Debug\tables\te.ctb" />
+    <None Include="bin\Debug\tables\telugu.cti" />
+    <None Include="bin\Debug\tables\text_nabcc.dis" />
+    <None Include="bin\Debug\tables\tr.ctb" />
+    <None Include="bin\Debug\tables\UEBC-g1.utb" />
+    <None Include="bin\Debug\tables\UEBC-g2.ctb" />
+    <None Include="bin\Debug\tables\ukchardefs.cti" />
+    <None Include="bin\Debug\tables\ukmaths.ctb" />
+    <None Include="bin\Debug\tables\ukmaths_edit.ctb" />
+    <None Include="bin\Debug\tables\ukmaths_single_cell_defs.cti" />
+    <None Include="bin\Debug\tables\ukmaths_unicode_defs.cti" />
+    <None Include="bin\Debug\tables\uni-text.dis" />
+    <None Include="bin\Debug\tables\unicode.dis" />
+    <None Include="bin\Debug\tables\unicodedefs.cti" />
+    <None Include="bin\Debug\tables\us-table.dis" />
+    <None Include="bin\Debug\tables\vi.ctb" />
+    <None Include="bin\Debug\tables\wiskunde-chardefs.cti" />
+    <None Include="bin\Debug\tables\wiskunde-translation.cti" />
+    <None Include="bin\Debug\tables\wiskunde.ctb" />
+    <None Include="bin\Debug\tables\zh-hk.ctb" />
+    <None Include="bin\Debug\tables\zh-tw.ctb" />
+    <None Include="Documents\Fonts\braille_fonts\%28free%29 braille fonts - .pfm,.pfb,.fon,.ttf.zip" />
+    <Resource Include="Documents\Fonts\braille_fonts\BRAIA___.TTF" />
+    <Resource Include="Documents\Fonts\braille_fonts\braille.ttf" />
+    <Resource Include="Documents\Fonts\braille_fonts\BRAILLE1.ttf" />
+    <Resource Include="Documents\Fonts\braille_fonts\BRAILLE3d.ttf" />
+    <Resource Include="Documents\Fonts\braille_fonts\BRLKIAMA.TTF" />
+    <None Include="Documents\Fonts\Cyrilic Font\Font.dxg" />
+    <None Include="Documents\Libraries\liblouis-2.5.4-mingw32msvc.zip" />
+    <None Include="Documents\Libraries\MyLibLouis2.zip" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Logic\Helpers\Classes.cd">
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\BRAIA___.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\braille.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BRAILLE1.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BRAILLE3d.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BRLKIAMA.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".braille">
+      <Visible>False</Visible>
+      <Description>Braille Document</Description>
+      <Progid>1</Progid>
+      <DefaultIcon>Images\favicon.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

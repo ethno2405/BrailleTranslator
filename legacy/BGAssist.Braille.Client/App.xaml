@@ -1,0 +1,52 @@
+﻿<Application x:Class="BGAssist.Braille.Client.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Forms/frmMain.xaml">
+    <Application.Resources>
+
+        <ControlTemplate x:Key="FlatButtonControlTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="OuterBorder" BorderBrush="Transparent" BorderThickness="1" CornerRadius="2">
+                <Border x:Name="InnerBorder" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="2">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" />
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#FF7CA0CC" />
+                    <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#FFE4EFFD" />
+                    <Setter TargetName="InnerBorder" Property="Background" Value="#FFDAE7F5" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#FF2E4E76" />
+                    <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#FF116EE4" />
+                    <Setter TargetName="InnerBorder" Property="Background" Value="#FF3272B8" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="FlatToggleButtonControlTemplate" TargetType="{x:Type ToggleButton}">
+            <Border x:Name="OuterBorder" BorderBrush="Transparent" BorderThickness="1" CornerRadius="2">
+                <Border x:Name="InnerBorder" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="2">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" />
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#FF7CA0CC" />
+                    <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#FFE4EFFD" />
+                    <Setter TargetName="InnerBorder" Property="Background" Value="#FFDAE7F5" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#FF2E4E76" />
+                    <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#FF116EE4" />
+                    <Setter TargetName="InnerBorder" Property="Background" Value="#FF3272B8" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#FFFFC00A" />
+                    <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#FFFFDE7F" />
+                    <Setter TargetName="InnerBorder" Property="Background" Value="#FFFFD458" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Application.Resources>
+</Application>

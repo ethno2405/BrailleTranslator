@@ -1,0 +1,131 @@
+Интерфейсът на брайловия редактор трябва да е лесен за употреба от незрящи, слабо виждащи или нормално виждащи потребители.
+Трябва да е съобразен с възможността за ползване чрез екранни четци.
+В някои отношения изграденият чрез WPF интерфейс се нуждае от допълнителни усилия, за да стане достъпен.
+
+Един основен принцип е, че всички достъпни чрез мишка команди, трябва да са достъпни и чрез клавишни команди. 
+Навсякъде където е възможно, трябва да се ползват клавишни команди. 
+Клавишите за бърз достъп в менютата и етикетите също трябва да не се пренебрегват.
+Всички бутони идруги контроли трябва да се наименоват.
+При създаване на къстъм контроли трябва да им се добавя AutomationPeer вариант, чрез който да се осигури достъп на екранния четец до основната къстъм контрола.
+
+
+
+----------
+
+Основно меню
+
+Основното меню е за предпочитане пред рибън менюто, защото незрящ потребител ползващ екранен четец, който не ползва мишка, за да достигне до полетата от рибън табовете, е необходимо многократно да натиска клавиша таб или шифт-таб. Това забавя работата.
+
+Може на първо време да се създаде стандартно меню със следните команди:
+
+File
+- New - Ctrl+n
+- Open - Ctrl+o
+- Save - Ctrl+s
+- Save as - Ctrl+shift+s
+- Print (normal printer)
+- emboss (Braille printer)
+- Recent files
+- Exit - Alt+f4
+
+Edit
+Undo, Redo, Cut, Copy, Paste,
+- Copy formatted - Ctrl+Shift+c
+- Paste formatted - Ctrl+shift+v
+- Select
+-- Word
+-- Line
+-- Paragraph
+-- Section
+-- Volume
+- Document - Ctrl+a
+- Insert
+-- Page break - Ctrl+enter
+-- Section break - Ctrl+shift+enter
+-- Volume break - Ctrl+alt+shift+enter
+- Delete
+-- Selection - Del
+-- word
+-- Line
+-- Paragraph
+-- Section Content
+-- Volume Content
+-- Next section break
+-- Next volume break
+
+Format
+- Symbol
+- Paragraph
+- Page template
+...
+
+Navigate
+- Search and Replace - Ctrl+f
+- Search next - F3
+- Search previous - Shift+f3
+- Search selection forward - Ctrl+f3
+- Search selection backward  - Ctrl+shift+f3
+- Search presets
+-- Search next
+--- Search "text 1" - ctrl+1
+--- Search "another text" - Ctrl+2
+--- ...
+--- Search "\r\n\t\r\n" - ctrl+0
+--- Search any - Ctrl+`
+-- Search previous
+--- Search "Text 1" - Ctrl+shift+1
+--- Search "another text" - Ctrl+shift+2
+--- Search "\r\n\t\r\n" - Ctrl+shift+0
+--- Search any - Ctrl+shift+`
+-- Select preset
+--- Preset 1 - Ctrl+alt+1
+--- ...
+--- Preset 10 - Ctrl+alt+0
+-- Edit Search presets ...
+- Book marks
+-- Goto
+--- Book mark 1 - Alt+1
+--- ...
+--- Book mark 10 - Alt+0
+-- Toggle
+--- Book mark 1 - Alt+shift+1
+--- ...
+--- Book mark 10 - Alt+shift+0
+-- Clear all Book marks
+- Next section - Ctrl+Page down
+- Prev section - Ctrl+Page up
+-- Next volume - Ctrl+alt+Page down
+- Prev volume - Ctrl+alt+Page up
+- Back in navigation stack
+- Forward in Navigation stack
+
+
+View
+- Structure TreeView
+- Text editor
+- Braille window
+- Next tab - Ctrl+tab
+- Prev tab - Ctrl+shift+tab
+- Switch main tabs
+...
+
+Tools
+- Options
+- Import
+- Export
+...
+
+Help
+- Help content
+- About
+
+
+
+
+----------
+
+Контекстни менюта
+
+
+Такива може да има на съответните места.
+
