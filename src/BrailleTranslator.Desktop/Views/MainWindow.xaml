@@ -1,0 +1,23 @@
+﻿<Window x:Class="BrailleTranslator.Desktop.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BrailleTranslator.Desktop.Views"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="768"
+        Width="1024"
+        DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ContentControl Name="Toolbar" DataContext="{Binding ToolbarViewModel}" Grid.Row="0" />
+        <ContentControl Name="MainContent" DataContext="{Binding MainContentViewModel}" Grid.Row="1" />
+    </Grid>
+</Window>
