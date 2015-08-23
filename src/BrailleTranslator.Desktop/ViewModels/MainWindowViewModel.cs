@@ -2,9 +2,9 @@
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
-    public class MainViewModel
+    public class MainWindowViewModel
     {
-        public MainViewModel(ToolbarViewModel toolbarViewModel, MainContentViewModel mainContentViewModel)
+        public MainWindowViewModel(object toolbarViewModel, object mainContentViewModel)
         {
             if (toolbarViewModel == null) throw new ArgumentNullException(nameof(toolbarViewModel));
             if (mainContentViewModel == null) throw new ArgumentNullException(nameof(mainContentViewModel));
@@ -13,8 +13,8 @@ namespace BrailleTranslator.Desktop.ViewModels
             MainContentViewModel = mainContentViewModel;
         }
 
-        public ToolbarViewModel ToolbarViewModel { get; private set; }
+        public object ToolbarViewModel { get; private set; }
 
-        public MainContentViewModel MainContentViewModel { get; private set; }
+        public object MainContentViewModel { get; private set; }
     }
 }

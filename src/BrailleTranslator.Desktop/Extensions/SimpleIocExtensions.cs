@@ -8,11 +8,7 @@ namespace GalaSoft.MvvmLight.Ioc
         {
             if (factory == null) throw new ArgumentNullException(nameof(factory));
 
-            T instance = factory(container);
-
-            if (instance == null) throw new InvalidOperationException(string.Concat("Cannot create instance of type ", typeof(T)));
-
-            container.Register(() => { return instance; });
+            container.Register(() => factory(container));
 
             return container;
         }

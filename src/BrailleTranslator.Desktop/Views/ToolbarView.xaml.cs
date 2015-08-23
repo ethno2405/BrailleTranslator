@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BrailleTranslator.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for Toolbar.xaml
+    /// Interaction logic for ToolbarView.xaml
     /// </summary>
-    public partial class Toolbar : UserControl
+    public partial class ToolbarView : UserControl
     {
-        public Toolbar()
+        public ToolbarView()
         {
             InitializeComponent();
         }
