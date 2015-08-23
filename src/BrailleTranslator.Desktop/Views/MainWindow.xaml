@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:BrailleTranslator.Desktop.Views"
         mc:Ignorable="d"
         Title="Braille translator"
-        Width="1024"
-        Height="768"
+        MinWidth="1024"
+        MinHeight="768"
         WindowStartupLocation="CenterScreen">
 
     <Grid>

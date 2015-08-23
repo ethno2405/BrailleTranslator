@@ -2,7 +2,7 @@
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
-    public class ToolbarViewModel : ObservableObject
+    public class ToolbarViewModel : ViewModelBase
     {
     }
 }
