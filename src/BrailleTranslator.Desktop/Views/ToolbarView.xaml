@@ -7,6 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Height="100" Fill="Red" />
+        <Rectangle Height="50" Fill="Red" />
+        <TextBlock Text="This is a toolbar" />
     </Grid>
 </UserControl>
