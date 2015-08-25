@@ -116,10 +116,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\BindableRichTextBox.cs" />
     <Compile Include="Extensions\SimpleIocExtensions.cs" />
     <Compile Include="Helpers\IMapper.cs" />
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
+    <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\DocumentRoot.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\DocumentBlock.cs" />
     <Compile Include="ViewModels\MainContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />

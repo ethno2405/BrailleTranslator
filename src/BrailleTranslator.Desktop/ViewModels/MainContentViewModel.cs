@@ -1,25 +1,27 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BrailleTranslator.Desktop.Model;
+using GalaSoft.MvvmLight;
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
     public class MainContentViewModel : ViewModelBase
     {
-        private string _text;
+        private Project _project;
 
         public MainContentViewModel()
         {
-            Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut urna nulla, suscipit ut est mollis, volutpat imperdiet felis. Donec volutpat bibendum magna id euismod. Morbi tellus erat, tincidunt euismod malesuada ac, aliquam mollis justo. Nullam cursus in eros non posuere. Duis sit amet cursus nulla. Nam quis malesuada sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam porttitor sodales diam.";
+            _project = new Project();
+            _project.CreateDocument("Test1");
         }
 
-        public string Text
+        public Project Project
         {
             get
             {
-                return _text;
+                return _project;
             }
             set
             {
-                Set(nameof(Text), ref _text, value);
+                Set(nameof(Project), ref _project, value);
             }
         }
     }

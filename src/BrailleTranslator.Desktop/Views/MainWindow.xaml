@@ -14,9 +14,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ContentControl Content="{Binding ToolbarViewModel}" Grid.Row="0" />
         <ContentControl Content="{Binding MainContentViewModel}" Grid.Row="1" />
+        <StatusBar Grid.Row="2">
+            <TextBlock Text="Ready" />
+        </StatusBar>
     </Grid>
 </Window>
