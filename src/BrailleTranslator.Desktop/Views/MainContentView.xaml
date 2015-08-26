@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BrailleTranslator.Desktop.Views"
              xmlns:controls="clr-namespace:BrailleTranslator.Desktop.Controls"
+             xmlns:converters="clr-namespace:BrailleTranslator.Desktop.Converters"
              mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
         <FontFamily x:Key="Braille">/BrailleTranslator.Desktop;component/fonts/#Braille Normal</FontFamily>
+        <converters:RootTreeViewConverter x:Key="RootTreeViewConverter" />
     </UserControl.Resources>
 
     <TabControl ItemsSource="{Binding Project.Documents}" SelectedItem="{Binding Project.CurrentDocument}">
@@ -33,28 +35,26 @@
                     </Grid.ColumnDefinitions>
 
                     <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TreeView>
-                            <!--<TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate ItemsSource="{Binding XPath=*}">
-                                    <TextBlock Text="{Binding}" />
+                        <TreeView ItemsSource="{Binding FlowDocument, Converter={StaticResource RootTreeViewConverter}}">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                    <TextBlock Text="{Binding Title}" />
                                 </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>-->
+                            </TreeView.ItemTemplate>
                         </TreeView>
                     </ScrollViewer>
 
                     <GridSplitter ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="5" Height="Auto" Margin="0" />
 
                     <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument, Mode=TwoWay}"
+                        <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument.Document, Mode=TwoWay}"
                                                       Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}" />
                     </ScrollViewer>
 
                     <GridSplitter ResizeDirection="Rows" Grid.Row="1" Grid.Column="2" Width="Auto" Height="5" Margin="0" HorizontalAlignment="Stretch" />
 
                     <ScrollViewer Name="BrailleContainer" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument, Mode=TwoWay}"
-                                                      Width="{Binding ActualWidth, ElementName=BrailleContainer, Mode=OneWay}"
-                                                      FontFamily="{DynamicResource Braille}" />
+                        <TextBox Text="{Binding FlowDocument.BrailleTranslation, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" />
                     </ScrollViewer>
                 </Grid>
             </DataTemplate>

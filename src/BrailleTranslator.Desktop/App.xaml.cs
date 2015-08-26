@@ -15,6 +15,7 @@ namespace BrailleTranslator.Desktop
             SimpleIoc.Default.Register<ToolbarViewModel>();
             SimpleIoc.Default.Register<MainContentViewModel>();
             SimpleIoc.Default.Register<IMapper, Mapper>();
+            SimpleIoc.Default.Register<IComponentFactory, ComponentFactory>();
 
             SimpleIoc.Default.Register(c =>
             {

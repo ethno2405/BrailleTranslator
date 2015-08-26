@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Markup;
 
 namespace BrailleTranslator.Desktop.Controls
 {
@@ -10,7 +9,7 @@ namespace BrailleTranslator.Desktop.Controls
         public static readonly DependencyProperty BindableDocumentProperty = DependencyProperty.Register("BindableDocument",
                                                                                                          typeof(FlowDocument),
                                                                                                          typeof(BindableRichTextBox),
-                                                                                                         new PropertyMetadata(null));
+                                                                                                         new PropertyMetadata(OnDocumentChanged));
 
         public FlowDocument BindableDocument
         {
@@ -37,11 +36,7 @@ namespace BrailleTranslator.Desktop.Controls
 
             if (control == null) return;
 
-            var newValue = e.NewValue as FlowDocument;
-
-            var xaml = XamlWriter.Save(newValue);
-
-            control.Document = XamlReader.Parse(xaml) as FlowDocument;
+            control.Document = e.NewValue as FlowDocument;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Documents;
 using GalaSoft.MvvmLight;
 
 namespace BrailleTranslator.Desktop.Model
@@ -10,7 +9,7 @@ namespace BrailleTranslator.Desktop.Model
 
         private bool _isSaved;
 
-        private FlowDocument _flowDocument;
+        private FlowDocumentWrapper _flowDocument;
 
         public Document(string name)
         {
@@ -18,6 +17,13 @@ namespace BrailleTranslator.Desktop.Model
 
             _name = name;
             _isSaved = true;
+            _flowDocument = new FlowDocumentWrapper(_name);
+            _flowDocument.PropertyChanged += FlowDocumentPropertyChanged;
+        }
+
+        ~Document()
+        {
+            _flowDocument.PropertyChanged -= FlowDocumentPropertyChanged;
         }
 
         public string Name
@@ -32,7 +38,7 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        public FlowDocument FlowDocument
+        public FlowDocumentWrapper FlowDocument
         {
             get
             {
@@ -53,6 +59,15 @@ namespace BrailleTranslator.Desktop.Model
             set
             {
                 Set(nameof(IsSaved), ref _isSaved, value);
+            }
+        }
+
+        private void FlowDocumentPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(FlowDocument.Document))
+            {
+                IsSaved = false;
+                RaisePropertyChanged(nameof(FlowDocument));
             }
         }
     }
