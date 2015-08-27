@@ -11,6 +11,8 @@ namespace BrailleTranslator.Desktop.ViewModels
         {
             _project = new Project();
             _project.CreateDocument("Test1");
+            _project.CreateDocument("Test2");
+            _project.CreateDocument("Test3");
         }
 
         public Project Project

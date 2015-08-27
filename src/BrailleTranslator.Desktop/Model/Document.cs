@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -7,24 +9,30 @@ namespace BrailleTranslator.Desktop.Model
     {
         private string _name;
 
-        private bool _isSaved;
+        private bool _isDirty;
 
         private FlowDocumentWrapper _flowDocument;
 
-        public Document(string name)
+        public Document(string name, Project parent)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (parent == null) throw new ArgumentNullException(nameof(parent));
 
             _name = name;
-            _isSaved = true;
+            _isDirty = true;
             _flowDocument = new FlowDocumentWrapper(_name);
             _flowDocument.PropertyChanged += FlowDocumentPropertyChanged;
+            CloseDocumentCommand = new RelayCommand(CloseDocument);
+            Parent = parent;
         }
 
         ~Document()
         {
             _flowDocument.PropertyChanged -= FlowDocumentPropertyChanged;
         }
+
+        public ICommand CloseDocumentCommand { get; }
+        public Project Parent { get; }
 
         public string Name
         {
@@ -50,23 +58,28 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        public bool IsSaved
+        public bool IsDirty
         {
             get
             {
-                return _isSaved;
+                return _isDirty;
             }
             set
             {
-                Set(nameof(IsSaved), ref _isSaved, value);
+                Set(nameof(IsDirty), ref _isDirty, value);
             }
+        }
+
+        private void CloseDocument()
+        {
+            Parent.CloseDocument(this);
         }
 
         private void FlowDocumentPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(FlowDocument.Document))
             {
-                IsSaved = false;
+                IsDirty = true;
                 RaisePropertyChanged(nameof(FlowDocument));
             }
         }

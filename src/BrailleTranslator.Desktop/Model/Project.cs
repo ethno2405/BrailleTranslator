@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 
 namespace BrailleTranslator.Desktop.Model
@@ -23,9 +24,20 @@ namespace BrailleTranslator.Desktop.Model
 
         public void CreateDocument(string name)
         {
-            var newDocument = new Document(name);
+            var newDocument = new Document(name, this);
             Documents.Add(newDocument);
             CurrentDocument = newDocument;
+        }
+
+        public void CloseDocument(Document document)
+        {
+            if (document.IsDirty)
+            {
+                // TODO: ask for user to save
+            }
+
+            var documentIndex = Documents.IndexOf(document);
+            Documents.Remove(document);
         }
     }
 }

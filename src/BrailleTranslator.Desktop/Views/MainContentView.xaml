@@ -11,12 +11,19 @@
     <UserControl.Resources>
         <FontFamily x:Key="Braille">/BrailleTranslator.Desktop;component/fonts/#Braille Normal</FontFamily>
         <converters:RootTreeViewConverter x:Key="RootTreeViewConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
     <TabControl ItemsSource="{Binding Project.Documents}" SelectedItem="{Binding Project.CurrentDocument}">
         <TabControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Name}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="*" Visibility="{Binding IsDirty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Button Command="{Binding CloseDocumentCommand}" Margin="5 0 0 0" OpacityMask="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                        <Image Source="/BrailleTranslator.Desktop;component/icons/close_icon.png" Height="12" Width="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+                </StackPanel>
             </DataTemplate>
         </TabControl.ItemTemplate>
         <TabControl.ContentTemplate>
@@ -54,7 +61,7 @@
                     <GridSplitter ResizeDirection="Rows" Grid.Row="1" Grid.Column="2" Width="Auto" Height="5" Margin="0" HorizontalAlignment="Stretch" />
 
                     <ScrollViewer Name="BrailleContainer" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TextBox Text="{Binding FlowDocument.BrailleTranslation, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" />
+                        <TextBox Text="{Binding FlowDocument.BrailleTranslation, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" IsReadOnly="True" />
                     </ScrollViewer>
                 </Grid>
             </DataTemplate>

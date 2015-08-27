@@ -32,6 +32,8 @@ namespace BrailleTranslator.Desktop.Controls
 
         private static void OnDocumentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if (e.NewValue == null) return;
+
             var control = d as BindableRichTextBox;
 
             if (control == null) return;
