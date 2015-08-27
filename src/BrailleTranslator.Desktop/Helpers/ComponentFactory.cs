@@ -18,6 +18,11 @@ namespace BrailleTranslator.Desktop.Helpers
                 return new SectionComponent("section", block as Section);
             }
 
+            if (block is Volume)
+            {
+                return new VolumeComponent("volume", block as Volume);
+            }
+
             throw new NotSupportedException(string.Format("Not supported type {0}.", block.GetType()));
         }
 

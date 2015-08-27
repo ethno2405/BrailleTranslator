@@ -18,8 +18,14 @@ namespace BrailleTranslator.Desktop.Model
         {
         }
 
-        public VolumeComponent(string title, Section block) : base(title, block)
+        public VolumeComponent(string title, Volume volume) : base(title, volume)
         {
+            foreach (var section in volume.Sections)
+            {
+                var child = ComponentFactory.CreateBlockComponent(section);
+
+                Children.Add(child as SectionComponent);
+            }
         }
 
         public ObservableCollection<SectionComponent> Children { get; } = new ObservableCollection<SectionComponent>();

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BrailleTranslator.Desktop.Views"
              xmlns:controls="clr-namespace:BrailleTranslator.Desktop.Controls"
              xmlns:converters="clr-namespace:BrailleTranslator.Desktop.Converters"
+             xmlns:model="clr-namespace:BrailleTranslator.Desktop.Model"
              mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -20,7 +21,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                     <TextBlock Text="*" Visibility="{Binding IsDirty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <Button Command="{Binding CloseDocumentCommand}" Margin="5 0 0 0" OpacityMask="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                    <Button Command="{Binding CloseDocumentCommand}" Margin="5 0 0 0" OpacityMask="{x:Null}" Background="{x:Null}" Foreground="{x:Null}">
                         <Image Source="/BrailleTranslator.Desktop;component/icons/close_icon.png" Height="12" Width="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Button>
                 </StackPanel>
@@ -43,9 +44,15 @@
 
                     <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <TreeView ItemsSource="{Binding FlowDocument, Converter={StaticResource RootTreeViewConverter}}">
+                            <TreeView.Resources>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
+                                </Style>
+                            </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                    <TextBlock Text="{Binding Title}" />
+                                    <TreeViewItem Header="{Binding Title}" />
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                         </TreeView>
@@ -55,13 +62,33 @@
 
                     <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument.Document, Mode=TwoWay}"
-                                                      Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}" />
+                                                      Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}">
+                            <controls:BindableRichTextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="Cut">
+                                        <MenuItem.Icon>
+                                            <Image Source="/BrailleTranslator.Desktop;component/icons/cut_icon.png" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="Copy">
+                                        <MenuItem.Icon>
+                                            <Image Source="/BrailleTranslator.Desktop;component/icons/copy_icon.png" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="Paste">
+                                        <MenuItem.Icon>
+                                            <Image Source="/BrailleTranslator.Desktop;component/icons/paste_icon.png" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </controls:BindableRichTextBox.ContextMenu>
+                        </controls:BindableRichTextBox>
                     </ScrollViewer>
 
                     <GridSplitter ResizeDirection="Rows" Grid.Row="1" Grid.Column="2" Width="Auto" Height="5" Margin="0" HorizontalAlignment="Stretch" />
 
                     <ScrollViewer Name="BrailleContainer" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TextBox Text="{Binding FlowDocument.BrailleTranslation, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" IsReadOnly="True" />
+                        <TextBox Text="{Binding FlowDocument.PlainText, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" IsReadOnly="True" />
                     </ScrollViewer>
                 </Grid>
             </DataTemplate>

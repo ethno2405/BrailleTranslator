@@ -51,11 +51,11 @@ namespace BrailleTranslator.Desktop.Model
                 LoadChildren();
 
                 RaisePropertyChanged(nameof(Document));
-                RaisePropertyChanged(nameof(BrailleTranslation));
+                RaisePropertyChanged(nameof(PlainText));
             }
         }
 
-        public string BrailleTranslation
+        public string PlainText
         {
             get
             {

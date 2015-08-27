@@ -16,8 +16,6 @@ namespace BrailleTranslator.Desktop.Model
 
         public SectionComponent(string title, Section section) : base(title, section)
         {
-            if (section == null) throw new ArgumentNullException(nameof(section));
-
             foreach (var block in section.Blocks)
             {
                 var child = ComponentFactory.CreateBlockComponent(block);

@@ -133,6 +133,8 @@
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\RunComponent.cs" />
     <Compile Include="Model\SectionComponent.cs" />
+    <Compile Include="Model\Volume.cs" />
+    <Compile Include="Model\VolumeComponent.cs" />
     <Compile Include="ViewModels\MainContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
@@ -206,6 +208,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\close_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\copy_icon.png" />
+    <Resource Include="icons\cut_icon.png" />
+    <Resource Include="icons\paste_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

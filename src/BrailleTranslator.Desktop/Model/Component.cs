@@ -5,9 +5,13 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace BrailleTranslator.Desktop.Model
 {
-    public abstract class Component : ObservableObject
+    public class Component : ObservableObject
     {
         private string _title;
+
+        private bool _isSelected;
+
+        private bool _isExpanded = true;
 
         public Component()
         {
@@ -19,6 +23,32 @@ namespace BrailleTranslator.Desktop.Model
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
 
             _title = title;
+        }
+
+        public virtual bool IsVisible { get; } = true;
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                Set(nameof(IsSelected), ref _isSelected, value);
+            }
+        }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                return _isExpanded;
+            }
+            set
+            {
+                Set(nameof(IsExpanded), ref _isExpanded, value);
+            }
         }
 
         public string Title

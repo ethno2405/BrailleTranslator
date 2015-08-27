@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -16,16 +14,12 @@ namespace BrailleTranslator.Desktop.Model
 
         public ParagraphComponent(string title, Paragraph paragraph) : base(title, paragraph)
         {
-            if (paragraph == null) throw new ArgumentNullException(nameof(paragraph));
-
-            foreach (var inline in paragraph.Inlines)
+            if (paragraph.Inlines.FirstInline != null)
             {
-                var child = ComponentFactory.CreateInlineCollection(inline);
-
-                Children.Add(child);
+                InlineComponent = ComponentFactory.CreateInlineCollection(paragraph.Inlines.FirstInline);
             }
         }
 
-        public ObservableCollection<InlineComponent> Children { get; } = new ObservableCollection<InlineComponent>();
+        public InlineComponent InlineComponent { get; set; }
     }
 }

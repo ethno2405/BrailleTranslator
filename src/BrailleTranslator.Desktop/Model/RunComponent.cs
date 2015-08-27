@@ -18,5 +18,13 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         public string Text { get; set; }
+
+        public override bool IsVisible
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }
