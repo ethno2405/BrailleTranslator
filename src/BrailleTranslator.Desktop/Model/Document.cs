@@ -32,6 +32,7 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         public ICommand CloseDocumentCommand { get; }
+
         public Project Parent { get; }
 
         public string Name

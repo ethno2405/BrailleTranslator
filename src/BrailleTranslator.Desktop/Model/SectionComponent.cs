@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
@@ -20,6 +19,7 @@ namespace BrailleTranslator.Desktop.Model
             {
                 var child = ComponentFactory.CreateBlockComponent(block);
 
+                child.Parent = this;
                 Childred.Add(child);
             }
         }

@@ -17,6 +17,7 @@ namespace BrailleTranslator.Desktop.Model
             if (paragraph.Inlines.FirstInline != null)
             {
                 InlineComponent = ComponentFactory.CreateInlineCollection(paragraph.Inlines.FirstInline);
+                InlineComponent.Parent = this;
             }
         }
 

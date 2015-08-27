@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Documents;
+using System.Windows.Input;
 using BrailleTranslator.Desktop.Helpers;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace BrailleTranslator.Desktop.Model
@@ -24,8 +26,12 @@ namespace BrailleTranslator.Desktop.Model
 
             _document = document;
             _title = title;
+            DeleteComponentCommand = new RelayCommand<Component>(DeleteComponent);
+
             LoadChildren();
         }
+
+        public ICommand DeleteComponentCommand { get; }
 
         public string Title
         {
@@ -65,6 +71,10 @@ namespace BrailleTranslator.Desktop.Model
 
         public ObservableCollection<BlockComponent> Children { get; } = new ObservableCollection<BlockComponent>();
 
+        private void DeleteComponent(Component component)
+        {
+        }
+
         private void LoadChildren()
         {
             var componentFactory = SimpleIoc.Default.GetInstance<IComponentFactory>();
@@ -75,6 +85,7 @@ namespace BrailleTranslator.Desktop.Model
             {
                 var child = componentFactory.CreateBlockComponent(block);
 
+                child.Parent = this;
                 Children.Add(child);
             }
         }

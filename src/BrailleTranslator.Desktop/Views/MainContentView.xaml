@@ -52,7 +52,15 @@
                             </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                    <TreeViewItem Header="{Binding Title}" />
+                                    <TreeViewItem Header="{Binding Title}">
+                                        <TreeViewItem.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Delete"
+                                                          Command="{Binding Parent.DeleteComponentCommand, Mode=OneWay}"
+                                                          CommandParameter="{Binding}" />
+                                            </ContextMenu>
+                                        </TreeViewItem.ContextMenu>
+                                    </TreeViewItem>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                         </TreeView>
