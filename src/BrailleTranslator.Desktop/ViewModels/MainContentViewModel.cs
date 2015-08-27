@@ -10,9 +10,7 @@ namespace BrailleTranslator.Desktop.ViewModels
         public MainContentViewModel()
         {
             _project = new Project();
-            _project.CreateDocument("Test1");
-            _project.CreateDocument("Test2");
-            _project.CreateDocument("Test3");
+            _project.CreateDocument("Document");
         }
 
         public Project Project

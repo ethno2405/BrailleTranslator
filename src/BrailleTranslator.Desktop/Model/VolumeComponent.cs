@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace BrailleTranslator.Desktop.Model
+﻿namespace BrailleTranslator.Desktop.Model
 {
     public class VolumeComponent : BlockComponent
     {
@@ -14,15 +12,12 @@ namespace BrailleTranslator.Desktop.Model
 
         public VolumeComponent(string title, Volume volume) : base(title, volume)
         {
-            foreach (var section in volume.Sections)
-            {
-                var child = ComponentFactory.CreateBlockComponent(section);
-
-                child.Parent = this;
-                Children.Add(child as SectionComponent);
-            }
+            PopulateChildren(volume.Blocks);
         }
 
-        public ObservableCollection<SectionComponent> Children { get; } = new ObservableCollection<SectionComponent>();
+        public VolumeComponent(Volume volume) : base(volume)
+        {
+            PopulateChildren(volume.Blocks);
+        }
     }
 }

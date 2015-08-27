@@ -27,20 +27,20 @@
                   Width="300"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
         </TreeView>
-        <!--<FlowDocumentReader>
+        <FlowDocumentReader>
             <FlowDocument>
                 <Paragraph>
                     <Run Name="content" />
                 </Paragraph>
             </FlowDocument>
-        </FlowDocumentReader>-->
+        </FlowDocumentReader>
 
-        <RichTextBox Width="600">
+        <!--<RichTextBox Width="600">
             <FlowDocument>
                 <Paragraph>
                     <Run Name="content" />
                 </Paragraph>
             </FlowDocument>
-        </RichTextBox>
+        </RichTextBox>-->
     </StackPanel>
 </Window>

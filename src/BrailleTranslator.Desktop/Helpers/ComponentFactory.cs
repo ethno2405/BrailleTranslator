@@ -6,34 +6,32 @@ namespace BrailleTranslator.Desktop.Helpers
 {
     public class ComponentFactory : IComponentFactory
     {
-        public BlockComponent CreateBlockComponent(Block block)
+        public Component CreateComponent(TextElement textElement)
         {
-            if (block is Paragraph)
+            var elementType = textElement.GetType();
+            var title = elementType.Name;
+
+            if (elementType == typeof(Paragraph))
             {
-                return new ParagraphComponent("paragraph", block as Paragraph);
+                return new ParagraphComponent(title, textElement as Paragraph);
             }
 
-            if (block is Section)
+            if (elementType == typeof(Volume))
             {
-                return new SectionComponent("section", block as Section);
+                return new VolumeComponent(title, textElement as Volume);
             }
 
-            if (block is Volume)
+            if (elementType == typeof(Section))
             {
-                return new VolumeComponent("volume", block as Volume);
+                return new SectionComponent(title, textElement as Section);
             }
 
-            throw new NotSupportedException(string.Format("Not supported type {0}.", block.GetType()));
-        }
-
-        public InlineComponent CreateInlineCollection(Inline inline)
-        {
-            if (inline is Run)
+            if (elementType == typeof(Run))
             {
-                return new RunComponent("run", inline as Run);
+                return new RunComponent(title, textElement as Run);
             }
 
-            throw new NotSupportedException(string.Format("Not supported type {0}.", inline.GetType()));
+            throw new NotSupportedException(string.Format("Not supported type {0}.", elementType));
         }
     }
 }

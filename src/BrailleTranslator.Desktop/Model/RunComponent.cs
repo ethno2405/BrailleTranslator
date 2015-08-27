@@ -17,6 +17,11 @@ namespace BrailleTranslator.Desktop.Model
             Text = run.Text;
         }
 
+        public RunComponent(Run run) : base(run)
+        {
+            Text = run.Text;
+        }
+
         public string Text { get; set; }
 
         public override bool IsVisible

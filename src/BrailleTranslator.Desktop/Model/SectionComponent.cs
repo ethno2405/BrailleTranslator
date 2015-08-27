@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -15,15 +14,12 @@ namespace BrailleTranslator.Desktop.Model
 
         public SectionComponent(string title, Section section) : base(title, section)
         {
-            foreach (var block in section.Blocks)
-            {
-                var child = ComponentFactory.CreateBlockComponent(block);
-
-                child.Parent = this;
-                Childred.Add(child);
-            }
+            PopulateChildren(section.Blocks);
         }
 
-        public ObservableCollection<BlockComponent> Childred { get; } = new ObservableCollection<BlockComponent>();
+        public SectionComponent(Section section) : base(section)
+        {
+            PopulateChildren(section.Blocks);
+        }
     }
 }

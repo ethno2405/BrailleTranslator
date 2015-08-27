@@ -5,8 +5,6 @@ namespace BrailleTranslator.Desktop.Helpers
 {
     public interface IComponentFactory
     {
-        BlockComponent CreateBlockComponent(Block block);
-
-        InlineComponent CreateInlineCollection(Inline inline);
+        Component CreateComponent(TextElement textElement);
     }
 }

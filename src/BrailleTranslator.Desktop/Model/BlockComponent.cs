@@ -20,6 +20,13 @@ namespace BrailleTranslator.Desktop.Model
             Block = block;
         }
 
+        public BlockComponent(Block block)
+        {
+            if (block == null) throw new ArgumentNullException(nameof(block));
+
+            Block = block;
+        }
+
         public Block Block { get; set; }
     }
 }

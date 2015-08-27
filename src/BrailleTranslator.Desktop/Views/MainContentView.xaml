@@ -7,6 +7,8 @@
              xmlns:controls="clr-namespace:BrailleTranslator.Desktop.Controls"
              xmlns:converters="clr-namespace:BrailleTranslator.Desktop.Converters"
              xmlns:model="clr-namespace:BrailleTranslator.Desktop.Model"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -52,15 +54,18 @@
                             </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                    <TreeViewItem Header="{Binding Title}">
-                                        <TreeViewItem.ContextMenu>
+                                    <TextBlock Text="{Binding Title}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <ei:ChangePropertyAction PropertyName="IsSelected" Value="True" TargetObject="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Header="Delete"
-                                                          Command="{Binding Parent.DeleteComponentCommand, Mode=OneWay}"
-                                                          CommandParameter="{Binding}" />
+                                                <MenuItem Header="Delete" Command="{Binding DeleteComponentCommand, Mode=OneWay}" InputGestureText="Del" />
                                             </ContextMenu>
-                                        </TreeViewItem.ContextMenu>
-                                    </TreeViewItem>
+                                        </TextBlock.ContextMenu>
+                                    </TextBlock>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                         </TreeView>

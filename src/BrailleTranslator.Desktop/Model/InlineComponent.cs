@@ -20,6 +20,17 @@ namespace BrailleTranslator.Desktop.Model
             Inline = inline;
         }
 
+        public InlineComponent(Inline inline)
+        {
+            if (inline == null) throw new ArgumentNullException(nameof(inline));
+
+            Inline = inline;
+        }
+
         public Inline Inline { get; set; }
+
+        public override void Delete()
+        {
+        }
     }
 }

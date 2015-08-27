@@ -1,48 +1,24 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Documents;
-using System.Windows.Input;
-using BrailleTranslator.Desktop.Helpers;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
+﻿using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
-    public class FlowDocumentWrapper : ObservableObject
+    public class FlowDocumentWrapper : Component
     {
         private FlowDocument _document;
 
-        private string _title;
-
-        public FlowDocumentWrapper(string title) : this(title, new FlowDocument())
+        public FlowDocumentWrapper()
         {
         }
 
-        public FlowDocumentWrapper(string title, FlowDocument document)
+        public FlowDocumentWrapper(string title) : base(title)
         {
-            if (document == null) throw new ArgumentNullException(nameof(document));
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
+            var volume = new Volume();
+            volume.Blocks.Add(new Section());
 
-            _document = document;
-            _title = title;
-            DeleteComponentCommand = new RelayCommand<Component>(DeleteComponent);
+            _document = new FlowDocument();
+            _document.Blocks.Add(volume);
 
-            LoadChildren();
-        }
-
-        public ICommand DeleteComponentCommand { get; }
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                Set(nameof(Title), ref _title, value);
-            }
+            PopulateChildren(_document.Blocks);
         }
 
         public FlowDocument Document
@@ -54,7 +30,9 @@ namespace BrailleTranslator.Desktop.Model
             set
             {
                 _document = value;
-                LoadChildren();
+
+                Children.Clear();
+                PopulateChildren(_document.Blocks);
 
                 RaisePropertyChanged(nameof(Document));
                 RaisePropertyChanged(nameof(PlainText));
@@ -69,25 +47,9 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        public ObservableCollection<BlockComponent> Children { get; } = new ObservableCollection<BlockComponent>();
-
-        private void DeleteComponent(Component component)
+        protected override bool CanDeleteComponent()
         {
-        }
-
-        private void LoadChildren()
-        {
-            var componentFactory = SimpleIoc.Default.GetInstance<IComponentFactory>();
-
-            Children.Clear();
-
-            foreach (var block in _document.Blocks)
-            {
-                var child = componentFactory.CreateBlockComponent(block);
-
-                child.Parent = this;
-                Children.Add(child);
-            }
+            return false;
         }
     }
 }

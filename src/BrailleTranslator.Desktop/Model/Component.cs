@@ -1,35 +1,32 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Documents;
+using System.Windows.Input;
 using BrailleTranslator.Desktop.Helpers;
-using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace BrailleTranslator.Desktop.Model
 {
-    public abstract class Component : ObservableObject
+    public abstract class Component : VisualNode
     {
-        private string _title;
-
-        private bool _isSelected;
-
-        private bool _isExpanded = true;
-
-        private ObservableObject _parent;
+        private Component _parent;
 
         public Component()
         {
-            _title = GetType().Name.ToLower();
+            DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
         }
 
         public Component(string title)
         {
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
-
-            _title = title;
+            DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
         }
 
-        public virtual bool IsVisible { get; } = true;
+        public ICommand DeleteComponentCommand { get; }
 
-        public ObservableObject Parent
+        public ObservableCollection<Component> Children { get; } = new ObservableCollection<Component>();
+
+        public Component Parent
         {
             get
             {
@@ -41,48 +38,33 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-            set
-            {
-                Set(nameof(IsSelected), ref _isSelected, value);
-            }
-        }
-
-        public bool IsExpanded
-        {
-            get
-            {
-                return _isExpanded;
-            }
-            set
-            {
-                Set(nameof(IsExpanded), ref _isExpanded, value);
-            }
-        }
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                Set(nameof(Title), ref _title, value);
-            }
-        }
-
         protected IComponentFactory ComponentFactory
         {
             get
             {
                 return SimpleIoc.Default.GetInstance<IComponentFactory>();
             }
+        }
+
+        public virtual void Delete()
+        {
+            Parent?.Children?.Remove(this);
+        }
+
+        protected void PopulateChildren(IEnumerable<TextElement> textElements)
+        {
+            foreach (var element in textElements)
+            {
+                var child = ComponentFactory.CreateComponent(element);
+
+                child.Parent = this;
+                Children.Add(child);
+            }
+        }
+
+        protected virtual bool CanDeleteComponent()
+        {
+            return true;
         }
     }
 }

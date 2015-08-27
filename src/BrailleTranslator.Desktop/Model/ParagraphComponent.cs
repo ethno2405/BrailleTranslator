@@ -14,13 +14,23 @@ namespace BrailleTranslator.Desktop.Model
 
         public ParagraphComponent(string title, Paragraph paragraph) : base(title, paragraph)
         {
-            if (paragraph.Inlines.FirstInline != null)
-            {
-                InlineComponent = ComponentFactory.CreateInlineCollection(paragraph.Inlines.FirstInline);
-                InlineComponent.Parent = this;
-            }
+            InitializeInlineComponent(paragraph);
+        }
+
+        public ParagraphComponent(Paragraph paragraph) : base(paragraph)
+        {
+            InitializeInlineComponent(paragraph);
         }
 
         public InlineComponent InlineComponent { get; set; }
+
+        private void InitializeInlineComponent(Paragraph paragraph)
+        {
+            if (paragraph.Inlines.FirstInline != null)
+            {
+                InlineComponent = ComponentFactory.CreateComponent(paragraph.Inlines.FirstInline) as InlineComponent;
+                InlineComponent.Parent = this;
+            }
+        }
     }
 }
