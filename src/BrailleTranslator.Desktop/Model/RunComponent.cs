@@ -1,4 +1,5 @@
-﻿using System.Windows.Documents;
+﻿using System;
+using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -30,6 +31,11 @@ namespace BrailleTranslator.Desktop.Model
             {
                 return false;
             }
+        }
+
+        protected override void RemoveChild(Component component)
+        {
+            throw new NotSupportedException("Run component does not have child components");
         }
     }
 }

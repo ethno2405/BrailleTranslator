@@ -1,4 +1,5 @@
-﻿using System.Windows.Documents;
+﻿using System;
+using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -23,6 +24,17 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         public InlineComponent InlineComponent { get; set; }
+
+        protected override void RemoveChild(Component component)
+        {
+            var inlineComponent = component as InlineComponent;
+
+            if (inlineComponent == null) throw new InvalidOperationException(string.Format("Component is of type {0}, but {1} is expected.", component.GetType(), typeof(InlineComponent)));
+
+            (Block as Paragraph).Inlines.Remove(inlineComponent.Inline);
+
+            InlineComponent = null;
+        }
 
         private void InitializeInlineComponent(Paragraph paragraph)
         {

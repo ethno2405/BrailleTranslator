@@ -17,7 +17,7 @@ namespace BrailleTranslator.Desktop.Model
             DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
         }
 
-        public Component(string title)
+        public Component(string title) : base(title)
         {
             DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
         }
@@ -48,8 +48,10 @@ namespace BrailleTranslator.Desktop.Model
 
         public virtual void Delete()
         {
-            Parent?.Children?.Remove(this);
+            Parent?.RemoveChild(this);
         }
+
+        protected abstract void RemoveChild(Component component);
 
         protected void PopulateChildren(IEnumerable<TextElement> textElements)
         {
