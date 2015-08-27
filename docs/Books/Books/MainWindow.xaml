@@ -1,0 +1,38 @@
+﻿<Window x:Class="Books.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:Books"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <my:XmlNodeFormatter x:Key="converter"/>
+        <HierarchicalDataTemplate x:Key="NodeTemplate">
+            <TextBlock x:Name="text" Text="books" />
+            <HierarchicalDataTemplate.ItemsSource>
+                <Binding XPath="child::node()[name() != '']" />
+            </HierarchicalDataTemplate.ItemsSource>
+            <HierarchicalDataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=NodeType}" Value="Element">
+                    <Setter TargetName="text" Property="Text" Value="{Binding Converter={StaticResource converter},
+            ConverterParameter=node}"></Setter>
+                </DataTrigger>
+            </HierarchicalDataTemplate.Triggers>
+
+        </HierarchicalDataTemplate>
+
+        <XmlDataProvider x:Key="xmlDataProvider"></XmlDataProvider>
+    </Window.Resources>
+    <StackPanel Orientation="Horizontal">
+        <TreeView Name="bookTree" ItemsSource="{Binding Source={StaticResource xmlDataProvider}}"
+       ItemTemplate="{Binding Source={StaticResource NodeTemplate}}" TreeViewItem.Selected="bookTree_Selected"
+         Width="300" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            
+        </TreeView>
+        <FlowDocumentReader>
+            <FlowDocument>
+                <Paragraph>
+                    <Run Name="content" />
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentReader>
+    </StackPanel>
+</Window>
