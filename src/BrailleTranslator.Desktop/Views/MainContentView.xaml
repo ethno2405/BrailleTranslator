@@ -9,6 +9,7 @@
              xmlns:model="clr-namespace:BrailleTranslator.Desktop.Model"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:b="clr-namespace:BrailleTranslator.Desktop.Behaviors"
              mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -48,12 +49,14 @@
                         <TreeView ItemsSource="{Binding FlowDocument, Converter={StaticResource RootTreeViewConverter}}">
                             <TreeView.ItemContainerStyle>
                                 <Style TargetType="TreeViewItem">
-                                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
-                                    <Setter Property="HorizontalAlignment" Value="Left" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Style.Setters>
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
+                                        <Setter Property="HorizontalAlignment" Value="Left" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    </Style.Setters>
                                 </Style>
                             </TreeView.ItemContainerStyle>
                             <TreeView.ItemTemplate>
@@ -62,6 +65,12 @@
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                                 <ei:ChangePropertyAction PropertyName="IsSelected" Value="True" TargetObject="{Binding}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="GotFocus">
+                                                <ei:ChangePropertyAction PropertyName="IsFocused" Value="True" TargetObject="{Binding}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <ei:ChangePropertyAction PropertyName="IsFocused" Value="False" TargetObject="{Binding}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <TextBlock.ContextMenu>
