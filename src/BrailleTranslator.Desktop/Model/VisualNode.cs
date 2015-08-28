@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using GalaSoft.MvvmLight;
 
 namespace BrailleTranslator.Desktop.Model
@@ -8,6 +9,8 @@ namespace BrailleTranslator.Desktop.Model
         private bool _isSelected;
 
         private bool _isExpanded = true;
+
+        private bool _isFocused;
 
         private string _title;
 
@@ -46,6 +49,21 @@ namespace BrailleTranslator.Desktop.Model
             set
             {
                 Set(nameof(IsSelected), ref _isSelected, value);
+            }
+        }
+
+        public bool IsFocused
+        {
+            get
+            {
+                return _isFocused;
+            }
+            set
+            {
+                if (Set(nameof(IsFocused), ref _isFocused, value))
+                {
+                    MessageBox.Show(_isFocused.ToString());
+                }
             }
         }
 
