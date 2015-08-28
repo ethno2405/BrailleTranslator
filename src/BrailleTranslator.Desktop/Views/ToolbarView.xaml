@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BrailleTranslator.Desktop.Views"
+             xmlns:md="clr-namespace:BrailleTranslator.Desktop.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <!--<Rectangle Height="50" Fill="Red" />
-        <TextBlock Text="This is a toolbar" />-->
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -23,9 +23,7 @@
                 <MenuItem InputGestureText="Ctrl + Shift + S" Header="Save As.."  AutomationProperties.Name="Save file as. Ctrl + Shift + S"/>
                 <Separator />
                 <MenuItem InputGestureText="Ctrl + P" Header="Print"  AutomationProperties.Name="Print. Ctrl + P"/>
-                <MenuItem  InputGestureText="Ctrl + E" Header="Emboss" AutomationProperties.Name="Emboss. Ctrl + E"/>
                 <Separator />
-                <MenuItem InputGestureText="Ctrl + R" Header="Recent Files" AutomationProperties.Name="Recent files. Ctrl + R"/>
                 <MenuItem x:Name="btnExit" InputGestureText="Alt + F4" Header="Exit"  AutomationProperties.Name="Exit. Alt + F4"/>
             </MenuItem>
             <MenuItem Header="Edit">
@@ -34,9 +32,12 @@
                 <MenuItem InputGestureText="Ctrl + X" Header="Cut" AutomationProperties.Name="Cut. Ctrl + X"/>
                 <MenuItem InputGestureText="Ctrl + C" Header="Copy" AutomationProperties.Name="Copy. Ctrl + C"/>
                 <MenuItem InputGestureText="Ctrl + V" Header="Paste" AutomationProperties.Name="Paste. Ctrl + V"/>
+                
                 <Separator />
+                <!--
                 <MenuItem InputGestureText="Ctrl + Shift + C" Header="Copy Formatted" AutomationProperties.Name="Copy Formatted. Ctrl + Shift + C"/>
                 <MenuItem InputGestureText="Ctrl + Shift + V" Header="Paste Formatted" AutomationProperties.Name="Paste Formatted. Ctrl + Shift + V"/>
+                
                 <Separator />
                 <MenuItem Header="Select">
                     <MenuItem InputGestureText="Ctrl + Shift + Right Arrow" Header="Word" AutomationProperties.Name="Select word. Ctrl + Shift + Right Arrow"/>
@@ -45,12 +46,13 @@
                     <MenuItem InputGestureText="Ctrl + Shift + B" Header="Section" AutomationProperties.Name="Select section. Ctrl + Shift + B"/>
                     <MenuItem InputGestureText="Ctrl + Shift + A" Header="Volume" AutomationProperties.Name="Select volume. Ctrl + Shift + A"/>
                     <MenuItem InputGestureText="Ctrl + A" Header="Document" AutomationProperties.Name="Select document. Ctrl + A"/>
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="Insert">
                     <MenuItem InputGestureText="Ctrl + Enter" Header="New Paragraph"   AutomationProperties.Name="Insert page Break. Ctrl + Enter" />
                     <MenuItem InputGestureText="Ctrl + Shift + Enter" Header="New Section"   AutomationProperties.Name="Insert section Break. Ctrl + Shift + Enter"/>
                     <MenuItem InputGestureText="Ctrl + Shift + Alt + Enter" Header="New Volume"  AutomationProperties.Name="Insert volume Break. Ctrl + Shift + Alt + Enter" />
                 </MenuItem>
+                <!--
                 <MenuItem Header="Delete">
                     <MenuItem InputGestureText="Del" Header="Selection" AutomationProperties.Name="Delete selection"/>
                     <MenuItem InputGestureText="Ctrl + Del" Header="Word" AutomationProperties.Name="Delete word. Ctrl + Del"/>
@@ -61,11 +63,14 @@
                     <MenuItem InputGestureText="Ctrl + Shift + B" Header="Next Section Break" AutomationProperties.Name="Delete next section break. Ctrl + Shift + B"/>
                     <MenuItem InputGestureText="Ctrl + Shift + J" Header="Next Volume Break" AutomationProperties.Name="Delete next volume break. Ctrl + Shift + J"/>
                 </MenuItem>
+                
                 <Separator/>
                 <MenuItem InputGestureText="Ctrl + Alt + P" Header="Preferences" AutomationProperties.Name="Preferences. Ctrl + Alt + P">
 
                 </MenuItem>
+                -->
             </MenuItem>
+            <!--
             <MenuItem Header="Format">
                 <MenuItem InputGestureText="Ctrl + K + S" Header="Symbol" AutomationProperties.Name="Symbol. Ctrl + K + S"/>
                 <MenuItem InputGestureText="Ctrl + K + P" Header="Paragraph" AutomationProperties.Name="Paragraph. Ctrl + K + P"/>
@@ -164,6 +169,7 @@
                 <MenuItem InputGestureText="Ctrl + Shift + ." Header="Export" AutomationProperties.Name="Export. Ctrl + Shift + ."/>
                 <MenuItem InputGestureText="" Header="Convert" AutomationProperties.Name="Convert text to braille"/>
             </MenuItem>
+            -->
             <MenuItem Header="Help">
                 <MenuItem InputGestureText="F1" Header="Help content" AutomationProperties.Name="Help content. F1"/>
                 <MenuItem InputGestureText="F2" Header="About" AutomationProperties.Name="About. F2"/>
