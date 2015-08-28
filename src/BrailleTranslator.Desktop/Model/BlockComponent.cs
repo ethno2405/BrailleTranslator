@@ -28,5 +28,10 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         public Block Block { get; set; }
+
+        protected override void RemoveChild(Component component)
+        {
+            if (Block.SiblingBlocks.Count == 0) return;
+        }
     }
 }

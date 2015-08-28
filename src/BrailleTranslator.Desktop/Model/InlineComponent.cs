@@ -32,5 +32,10 @@ namespace BrailleTranslator.Desktop.Model
         public override void Delete()
         {
         }
+
+        protected override void RemoveChild(Component component)
+        {
+            if (Inline.SiblingInlines.Count == 0) return;
+        }
     }
 }

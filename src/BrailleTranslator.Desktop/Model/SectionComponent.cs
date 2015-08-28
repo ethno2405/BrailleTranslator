@@ -25,6 +25,8 @@ namespace BrailleTranslator.Desktop.Model
 
         protected override void RemoveChild(Component component)
         {
+            base.RemoveChild(component);
+
             var blockComponent = component as BlockComponent;
 
             if (blockComponent == null) throw new InvalidOperationException(string.Format("Component is of type {0}, but type {1} is expected.", component.GetType(), typeof(BlockComponent)));

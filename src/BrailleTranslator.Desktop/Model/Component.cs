@@ -66,7 +66,7 @@ namespace BrailleTranslator.Desktop.Model
 
         protected virtual bool CanDeleteComponent()
         {
-            return true;
+            return Parent.Children.Count > 1;
         }
     }
 }

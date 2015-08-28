@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using BrailleTranslator.Desktop.Model;
 
 namespace BrailleTranslator.Desktop.Controls
 {
@@ -26,6 +27,11 @@ namespace BrailleTranslator.Desktop.Controls
         protected override void OnTextChanged(TextChangedEventArgs e)
         {
             base.OnTextChanged(e);
+
+            if (Document.Blocks.Count == 0)
+            {
+                Document.Blocks.Add(new Volume(new Section(new Paragraph(new Run(string.Empty)))));
+            }
 
             BindableDocument = Document;
         }
