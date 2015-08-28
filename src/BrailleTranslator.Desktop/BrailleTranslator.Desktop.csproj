@@ -131,6 +131,8 @@
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\PropertyChangedHandler.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
+    <Compile Include="Messages\KeyShortcutMessage.cs" />
+    <Compile Include="Messages\KeyShortcutMessageToken.cs" />
     <Compile Include="Model\BlockComponent.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Document.cs" />
