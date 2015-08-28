@@ -63,6 +63,9 @@
                                         <TextBlock.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem Header="Delete" Command="{Binding DeleteComponentCommand, Mode=OneWay}" InputGestureText="Del" />
+                                                <MenuItem Header="Rename" Command="" InputGestureText="F2" />
+                                                <MenuItem Header="Move up" Command="" InputGestureText="PageUp" />
+                                                <MenuItem Header="Move down" Command="" InputGestureText="PageDown" />
                                             </ContextMenu>
                                         </TextBlock.ContextMenu>
                                     </TextBlock>
