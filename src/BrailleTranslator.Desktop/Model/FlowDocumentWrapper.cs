@@ -13,8 +13,10 @@ namespace BrailleTranslator.Desktop.Model
 
         public FlowDocumentWrapper(string title) : base(title)
         {
+            var paragraph = new Paragraph(new Run(string.Empty));
+
             var volume = new Volume();
-            volume.Blocks.Add(new Section());
+            volume.Blocks.Add(new Section(paragraph));
 
             _document = new FlowDocument();
             _document.Blocks.Add(volume);
