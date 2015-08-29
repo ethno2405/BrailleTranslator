@@ -63,7 +63,7 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected override bool CanDeleteComponent(Component component)
+        protected override bool CanDelete()
         {
             return false;
         }

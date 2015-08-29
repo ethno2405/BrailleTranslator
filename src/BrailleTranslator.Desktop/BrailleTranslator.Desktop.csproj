@@ -123,6 +123,10 @@
     <Compile Include="Behaviors\IsFocusedBehavior.cs" />
     <Compile Include="Controls\BindableRichTextBox.cs" />
     <Compile Include="Converters\RootTreeViewConverter.cs" />
+    <Compile Include="Dialogs\ViewModels\ComponentTitleViewModel.cs" />
+    <Compile Include="Dialogs\Views\ComponentTitleView.xaml.cs">
+      <DependentUpon>ComponentTitleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ObservableObjectExtensions.cs" />
     <Compile Include="Extensions\SimpleIocExtensions.cs" />
     <Compile Include="Helpers\ComponentFactory.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="Messages\KeyShortcutMessage.cs" />
     <Compile Include="Messages\KeyShortcutMessageToken.cs" />
+    <Compile Include="Messages\Tokens.cs" />
     <Compile Include="Model\BlockComponent.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Document.cs" />
@@ -145,6 +150,8 @@
     <Compile Include="Model\VisualNode.cs" />
     <Compile Include="Model\Volume.cs" />
     <Compile Include="Model\VolumeComponent.cs" />
+    <Compile Include="Services\IWindowService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\MainContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
@@ -192,6 +199,10 @@
     <Resource Include="fonts\readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dialogs\Views\ComponentTitleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainContentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,7 +236,9 @@
     <Resource Include="icons\cut_icon.png" />
     <Resource Include="icons\paste_icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="icons\favicon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

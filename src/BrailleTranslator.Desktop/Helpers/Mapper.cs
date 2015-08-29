@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Markup;
 
 namespace BrailleTranslator.Desktop.Helpers
 {
     public class Mapper : IMapper
     {
+        public IDictionary<Type, Type> Mappings { get; } = new Dictionary<Type, Type>();
+
         public IMapper Map<TViewModel, TView>() where TView : FrameworkElement
         {
             return Map(typeof(TViewModel), typeof(TView));
@@ -13,30 +15,30 @@ namespace BrailleTranslator.Desktop.Helpers
 
         public IMapper Map(Type viewModelType, Type viewType)
         {
-            var template = CreateTemplate(viewModelType, viewType);
-            var key = template.DataTemplateKey;
-            Application.Current.Resources.Add(key, template);
+            if (viewModelType == null) throw new ArgumentNullException(nameof(viewModelType));
+            if (viewType == null) throw new ArgumentNullException(nameof(viewType));
+            if (Mappings.ContainsKey(viewModelType)) throw new InvalidOperationException(string.Format("Type {0} is already mapped with {1}", viewModelType.FullName, viewType.FullName));
+
+            Mappings.Add(viewModelType, viewType);
 
             return this;
         }
 
-        private DataTemplate CreateTemplate(Type viewModelType, Type viewType)
+        public Type Resolve<TViewModel>()
         {
-            const string xamlTemplate = "<DataTemplate DataType=\"{{x:Type vm:{0}}}\"><v:{1} /></DataTemplate>";
-            var xaml = string.Format(xamlTemplate, viewModelType.Name, viewType.Name);
+            return Resolve(typeof(TViewModel));
+        }
 
-            var context = new ParserContext();
+        public Type Resolve(Type viewModelType)
+        {
+            if (!Mappings.ContainsKey(viewModelType)) throw new InvalidOperationException(string.Format("Type {0} is not mapped", viewModelType.FullName));
 
-            context.XamlTypeMapper = new XamlTypeMapper(new string[0]);
-            context.XamlTypeMapper.AddMappingProcessingInstruction("vm", viewModelType.Namespace, viewModelType.Assembly.FullName);
-            context.XamlTypeMapper.AddMappingProcessingInstruction("v", viewType.Namespace, viewType.Assembly.FullName);
+            return Mappings[viewModelType];
+        }
 
-            context.XmlnsDictionary.Add("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
-            context.XmlnsDictionary.Add("x", "http://schemas.microsoft.com/winfx/2006/xaml");
-            context.XmlnsDictionary.Add("vm", "vm");
-            context.XmlnsDictionary.Add("v", "v");
-
-            return (DataTemplate)XamlReader.Parse(xaml, context);
+        public IDictionary<Type, Type> GetMappings()
+        {
+            return Mappings;
         }
     }
 }

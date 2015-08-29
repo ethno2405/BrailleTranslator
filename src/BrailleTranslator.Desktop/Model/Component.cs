@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Helpers;
+using BrailleTranslator.Desktop.Messages;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -14,12 +16,16 @@ namespace BrailleTranslator.Desktop.Model
 
         public Component()
         {
-            DeleteComponentCommand = new RelayCommand(Delete, () => CanDeleteComponent(this));
+            DeleteComponentCommand = new RelayCommand(Delete, () => CanDelete());
+
+            SubscribeForMessages();
         }
 
         public Component(string title) : base(title)
         {
-            DeleteComponentCommand = new RelayCommand(Delete, () => CanDeleteComponent(this));
+            DeleteComponentCommand = new RelayCommand(Delete, () => CanDelete());
+
+            SubscribeForMessages();
         }
 
         public static FlowDocumentWrapper DocumentRoot { get; set; }
@@ -50,7 +56,7 @@ namespace BrailleTranslator.Desktop.Model
 
         public virtual void Delete()
         {
-            if (CanDeleteComponent(this))
+            if (CanDelete())
             {
                 Parent?.RemoveChild(this);
             }
@@ -69,9 +75,21 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected virtual bool CanDeleteComponent(Component component)
+        protected virtual bool CanDelete()
         {
-            return component?.Parent?.Children.Count > 1;
+            return Parent?.Children.Count > 1;
+        }
+
+        private void SubscribeForMessages()
+        {
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Delete, ModifierKeys.None),
+                (m) =>
+                {
+                    if (IsSelected)
+                    {
+                        Delete();
+                    }
+                });
         }
     }
 }

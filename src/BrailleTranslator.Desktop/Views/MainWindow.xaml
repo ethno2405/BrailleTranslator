@@ -10,7 +10,7 @@
         Title="Braille translator"
         MinWidth="1024"
         MinHeight="768"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Icon="/BrailleTranslator.Desktop;component/icons/favicon.ico">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="KeyUp">

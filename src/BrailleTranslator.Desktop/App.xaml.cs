@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using BrailleTranslator.Desktop.Helpers;
+using BrailleTranslator.Desktop.Services;
 using BrailleTranslator.Desktop.ViewModels;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -13,8 +14,8 @@ namespace BrailleTranslator.Desktop
         protected override void OnStartup(StartupEventArgs e)
         {
             SimpleIoc.Default.Register<ToolbarViewModel>();
-            SimpleIoc.Default.Register<MainContentViewModel>();
             SimpleIoc.Default.Register<IMapper, Mapper>();
+            SimpleIoc.Default.Register<IWindowService, WindowService>();
             SimpleIoc.Default.Register<IComponentFactory, ComponentFactory>();
 
             SimpleIoc.Default.Register(c =>
@@ -24,6 +25,10 @@ namespace BrailleTranslator.Desktop
             .Register(c =>
             {
                 return new ViewModelLocator(c.GetInstance<IMapper>());
+            })
+            .Register(c =>
+            {
+                return new MainContentViewModel(c.GetInstance<IWindowService>());
             });
 
             Resources.Add("ViewModelLocator", SimpleIoc.Default.GetInstance<ViewModelLocator>());

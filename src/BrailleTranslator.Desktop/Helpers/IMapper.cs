@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace BrailleTranslator.Desktop.Helpers
@@ -8,5 +9,11 @@ namespace BrailleTranslator.Desktop.Helpers
         IMapper Map(Type viewModelType, Type viewType);
 
         IMapper Map<TViewModel, TView>() where TView : FrameworkElement;
+
+        Type Resolve<TViewModel>();
+
+        Type Resolve(Type viewModelType);
+
+        IDictionary<Type, Type> GetMappings();
     }
 }
