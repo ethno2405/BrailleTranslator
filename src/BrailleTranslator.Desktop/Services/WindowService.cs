@@ -17,7 +17,7 @@ namespace BrailleTranslator.Desktop.Services
             window.Topmost = true;
             window.SizeToContent = SizeToContent.WidthAndHeight;
             window.Closing += (s, e) => { callback?.Invoke(); };
-            window.ShowDialog();
+            window.Show();
         }
 
         public void Close(object dataContext)
