@@ -11,17 +11,17 @@
         <Menu>
             <MenuItem Header="File">
                 <MenuItem InputGestureText="Ctrl + N" Header="New" />
-                <MenuItem InputGestureText="Ctrl + O" Header="Open" />
-                <MenuItem InputGestureText="Ctrl + S" Header="Save" />
-                <MenuItem InputGestureText="Ctrl + Shift + S" Header="Save As.." />
+                <MenuItem InputGestureText="Ctrl + O" Command="{Binding OpenCommand}" Header="Open" />
+                <MenuItem InputGestureText="Ctrl + S" Command="{Binding SaveCommand}" Header="Save" />
+                <MenuItem InputGestureText="Ctrl + Shift + S" Command="{Binding SaveCommand}" Header="Save As.." />
 
                 <Separator />
 
-                <MenuItem InputGestureText="Ctrl + P" Header="Print" />
+                <MenuItem InputGestureText="Ctrl + P" Command="{Binding PrintCommand}" Header="Print" />
 
                 <Separator />
 
-                <MenuItem InputGestureText="Alt + F4" Header="Exit" />
+                <MenuItem InputGestureText="Alt + F4" Command="{Binding ExitCommand}" Header="Exit" />
             </MenuItem>
 
             <MenuItem Header="Edit">

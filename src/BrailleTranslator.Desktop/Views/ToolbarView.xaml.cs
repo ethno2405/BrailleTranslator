@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrailleTranslator.Desktop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace BrailleTranslator.Desktop.Views
     {
         public ToolbarView()
         {
+            DataContext = new ToolbarViewModel();
             InitializeComponent();
         }
     }
