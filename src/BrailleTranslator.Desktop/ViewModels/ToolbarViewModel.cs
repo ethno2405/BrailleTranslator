@@ -25,8 +25,7 @@ namespace BrailleTranslator.Desktop.ViewModels
             }
         }
 
-        private string _defaultPath;
-
+        private string _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); 
         public ToolbarViewModel()
         {
             RegisterCommands();
@@ -49,6 +48,7 @@ namespace BrailleTranslator.Desktop.ViewModels
         private void ExecuteOpenFileDialog()
         {
             var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
+            dialog.Filter = "Braille Files (*.brf)|*.brf|Text Files (*.txt)|*.txt";
             dialog.ShowDialog();
 
             SelectedPath = dialog.FileName;
@@ -57,6 +57,8 @@ namespace BrailleTranslator.Desktop.ViewModels
         private void ExecuteSaveFileDialog()
         {
             var dialog = new SaveFileDialog { InitialDirectory = _defaultPath };
+            dialog.Filter = "Braille Files (*.brf)|*.brf";
+            dialog.DefaultExt = ".braille";
             dialog.ShowDialog();
 
             SelectedPath = dialog.FileName;
