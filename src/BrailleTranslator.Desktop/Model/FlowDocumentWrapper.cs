@@ -5,21 +5,22 @@ namespace BrailleTranslator.Desktop.Model
 {
     public class FlowDocumentWrapper : Component
     {
+        private static readonly FlowDocument _defaultDocument = new FlowDocument(new Volume(new Section(new Paragraph(new Run(string.Empty)))));
+
         private FlowDocument _document;
+
+        private TextPointer _caretPosition;
 
         public FlowDocumentWrapper()
         {
+            DocumentRoot = this;
         }
 
         public FlowDocumentWrapper(string title) : base(title)
         {
-            var paragraph = new Paragraph(new Run(string.Empty));
+            DocumentRoot = this;
 
-            var volume = new Volume();
-            volume.Blocks.Add(new Section(paragraph));
-
-            _document = new FlowDocument();
-            _document.Blocks.Add(volume);
+            _document = _defaultDocument;
 
             PopulateChildren(_document.Blocks);
         }
@@ -50,7 +51,19 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected override bool CanDeleteComponent()
+        public TextPointer CaretPosition
+        {
+            get
+            {
+                return _caretPosition;
+            }
+            set
+            {
+                Set(nameof(CaretPosition), ref _caretPosition, value);
+            }
+        }
+
+        protected override bool CanDeleteComponent(Component component)
         {
             return false;
         }

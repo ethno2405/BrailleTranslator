@@ -14,13 +14,15 @@ namespace BrailleTranslator.Desktop.Model
 
         public Component()
         {
-            DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
+            DeleteComponentCommand = new RelayCommand(Delete, () => CanDeleteComponent(this));
         }
 
         public Component(string title) : base(title)
         {
-            DeleteComponentCommand = new RelayCommand(Delete, CanDeleteComponent);
+            DeleteComponentCommand = new RelayCommand(Delete, () => CanDeleteComponent(this));
         }
+
+        public static FlowDocumentWrapper DocumentRoot { get; set; }
 
         public ICommand DeleteComponentCommand { get; }
 
@@ -48,7 +50,10 @@ namespace BrailleTranslator.Desktop.Model
 
         public virtual void Delete()
         {
-            Parent?.RemoveChild(this);
+            if (CanDeleteComponent(this))
+            {
+                Parent?.RemoveChild(this);
+            }
         }
 
         protected abstract void RemoveChild(Component component);
@@ -64,9 +69,9 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected virtual bool CanDeleteComponent()
+        protected virtual bool CanDeleteComponent(Component component)
         {
-            return Parent.Children.Count > 1;
+            return component?.Parent?.Children.Count > 1;
         }
     }
 }

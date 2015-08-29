@@ -25,15 +25,25 @@ namespace BrailleTranslator.Desktop.Model
 
         public InlineComponent InlineComponent { get; set; }
 
+        protected Paragraph Paragraph
+        {
+            get
+            {
+                return Block as Paragraph;
+            }
+            set
+            {
+                Block = value;
+            }
+        }
+
         protected override void RemoveChild(Component component)
         {
-            base.RemoveChild(component);
-
             var inlineComponent = component as InlineComponent;
 
             if (inlineComponent == null) throw new InvalidOperationException(string.Format("Component is of type {0}, but {1} is expected.", component.GetType(), typeof(InlineComponent)));
 
-            (Block as Paragraph).Inlines.Remove(inlineComponent.Inline);
+            Paragraph.Inlines.Remove(inlineComponent.Inline);
 
             InlineComponent = null;
         }

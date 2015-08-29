@@ -33,9 +33,9 @@ namespace BrailleTranslator.Desktop.Model
         {
         }
 
-        protected override void RemoveChild(Component component)
+        protected override bool CanDeleteComponent(Component component)
         {
-            if (Inline.SiblingInlines.Count == 0) return;
+            return false;
         }
     }
 }

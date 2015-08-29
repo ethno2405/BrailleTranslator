@@ -3,7 +3,7 @@ using System.Windows.Interactivity;
 
 namespace BrailleTranslator.Desktop.Behaviors
 {
-    public class IsFocusedBehavior : Behavior<UIElement>
+    public class IsFocusedBehavior : Behavior<UIElement> // Unused behavior
     {
         public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached("IsFocused", typeof(bool), typeof(IsFocusedBehavior), new PropertyMetadata(OnIsFocusedChanged));
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Documents;
+using GalaSoft.MvvmLight;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -7,10 +8,12 @@ namespace BrailleTranslator.Desktop.Model
     {
         public BlockComponent()
         {
+            SubscribeForEvents();
         }
 
         public BlockComponent(string title) : base(title)
         {
+            SubscribeForEvents();
         }
 
         public BlockComponent(string title, Block block) : base(title)
@@ -18,6 +21,8 @@ namespace BrailleTranslator.Desktop.Model
             if (block == null) throw new ArgumentNullException(nameof(block));
 
             Block = block;
+
+            SubscribeForEvents();
         }
 
         public BlockComponent(Block block)
@@ -25,13 +30,21 @@ namespace BrailleTranslator.Desktop.Model
             if (block == null) throw new ArgumentNullException(nameof(block));
 
             Block = block;
+
+            SubscribeForEvents();
         }
 
         public Block Block { get; set; }
 
-        protected override void RemoveChild(Component component)
+        private void SubscribeForEvents()
         {
-            if (Block.SiblingBlocks.Count == 0) return;
+            this.ForProperty(nameof(IsSelected))
+                .When(() => IsSelected)
+                .Subscribe(MoveCaretToComponentLocation);
+        }
+
+        private void MoveCaretToComponentLocation()
+        {
         }
     }
 }
