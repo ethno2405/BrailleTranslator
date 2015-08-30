@@ -46,6 +46,40 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        protected override void MoveUp()
+        {
+            if (!CanMoveUp()) return;
+
+            var section = Paragraph.Parent as Section;
+            var previous = Paragraph.PreviousBlock;
+
+            IsMoving = true;
+
+            section.Blocks.Remove(Block);
+            section.Blocks.InsertBefore(previous, Paragraph);
+            IsSelected = true;
+
+            base.MoveUp();
+            IsMoving = false;
+        }
+
+        protected override void MoveDown()
+        {
+            if (!CanMoveDown()) return;
+
+            var section = Paragraph.Parent as Section;
+            var next = Paragraph.NextBlock;
+
+            IsMoving = true;
+
+            section.Blocks.Remove(Block);
+            section.Blocks.InsertAfter(next, Paragraph);
+            IsSelected = true;
+
+            base.MoveDown();
+            IsMoving = false;
+        }
+
         protected override void RemoveChild(Component component)
         {
             var inlineComponent = component as InlineComponent;

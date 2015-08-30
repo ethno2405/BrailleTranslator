@@ -17,21 +17,23 @@ namespace BrailleTranslator.Desktop.Model
 
         public Component()
         {
-            DeleteComponentCommand = new RelayCommand(Delete, () => CanDelete());
-
+            RegisterCommands();
             SubscribeForMessages();
         }
 
         public Component(string title) : base(title)
         {
-            DeleteComponentCommand = new RelayCommand(Delete, () => CanDelete());
-
+            RegisterCommands();
             SubscribeForMessages();
         }
 
         public static FlowDocumentWrapper DocumentRoot { get; set; }
 
-        public ICommand DeleteComponentCommand { get; }
+        public ICommand DeleteComponentCommand { get; private set; }
+
+        public ICommand MoveUpCommand { get; private set; }
+
+        public ICommand MoveDownCommand { get; private set; }
 
         public virtual ObservableCollection<Component> Children { get; private set; } = new ObservableCollection<Component>();
 
@@ -47,6 +49,8 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        protected static bool IsMoving { get; set; }
+
         protected IComponentFactory ComponentFactory
         {
             get
@@ -59,10 +63,9 @@ namespace BrailleTranslator.Desktop.Model
 
         public virtual void Delete()
         {
-            if (CanDelete())
-            {
-                Parent?.RemoveChild(this);
-            }
+            if (!CanDelete()) return;
+
+            Parent?.RemoveChild(this);
         }
 
         protected abstract void RemoveChild(Component component);
@@ -71,13 +74,11 @@ namespace BrailleTranslator.Desktop.Model
 
         protected void PopulateChildren(IEnumerable<TextElement> textElements)
         {
+            if (IsMoving) return;
+
             if (textElements.Count() < Children.Count)
             {
                 var childrenToRemove = Children.Where(x => !textElements.Contains(x.Payload));
-
-                if (childrenToRemove.Any(x => x.IsSelected))
-                {
-                }
 
                 Children.RemoveRange(childrenToRemove);
             }
@@ -102,19 +103,49 @@ namespace BrailleTranslator.Desktop.Model
 
         protected virtual bool CanDelete()
         {
-            return Parent?.Children.Count > 1;
+            return IsSelected && Parent.Children.Count > 1;
+        }
+
+        protected virtual bool CanMoveUp()
+        {
+            return IsSelected && Parent.Children.First() != this;
+        }
+
+        protected virtual bool CanMoveDown()
+        {
+            return IsSelected && Parent.Children.Last() != this;
+        }
+
+        protected virtual void MoveUp()
+        {
+            if (!CanMoveUp()) return;
+
+            var currentIndex = Parent.Children.IndexOf(this);
+
+            Parent.Children.Move(currentIndex, currentIndex - 1);
+        }
+
+        protected virtual void MoveDown()
+        {
+            if (!CanMoveDown()) return;
+
+            var currentIndex = Parent.Children.IndexOf(this);
+
+            Parent.Children.Move(currentIndex, currentIndex + 1);
+        }
+
+        private void RegisterCommands()
+        {
+            DeleteComponentCommand = new RelayCommand(Delete, CanDelete);
+            MoveUpCommand = new RelayCommand(MoveUp, CanMoveUp);
+            MoveDownCommand = new RelayCommand(MoveDown, CanMoveDown);
         }
 
         private void SubscribeForMessages()
         {
-            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Delete, ModifierKeys.None),
-                (m) =>
-                {
-                    if (IsSelected)
-                    {
-                        Delete();
-                    }
-                });
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Delete, ModifierKeys.None), m => Delete());
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Up, ModifierKeys.Control), m => MoveUp());
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Down, ModifierKeys.Control), m => MoveDown());
         }
     }
 }

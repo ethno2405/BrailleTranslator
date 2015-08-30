@@ -89,6 +89,16 @@ namespace BrailleTranslator.Desktop.Model
             Children.Remove(component);
         }
 
+        protected override bool CanMoveUp()
+        {
+            return false;
+        }
+
+        protected override bool CanMoveDown()
+        {
+            return false;
+        }
+
         protected override void PopulateChildren(TextElement textElement)
         {
             throw new NotSupportedException();

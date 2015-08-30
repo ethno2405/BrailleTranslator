@@ -49,5 +49,15 @@ namespace BrailleTranslator.Desktop.Model
         {
             return false;
         }
+
+        protected override bool CanMoveUp()
+        {
+            return false;
+        }
+
+        protected override bool CanMoveDown()
+        {
+            return false;
+        }
     }
 }
