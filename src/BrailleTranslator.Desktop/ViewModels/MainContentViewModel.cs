@@ -24,6 +24,7 @@ namespace BrailleTranslator.Desktop.ViewModels
             _project.CreateDocument("Document");
 
             MessengerInstance.Register<NotificationMessageAction<string>>(this, Tokens.Rename, m => OpenRenameDialog(m.Notification, m.Execute));
+            MessengerInstance.Register<NotificationMessageAction<string>>(this, Tokens.NewComponent, m => OpenNewComponentDialog(m.Notification, m.Execute));
         }
 
         public Project Project
@@ -40,8 +41,18 @@ namespace BrailleTranslator.Desktop.ViewModels
 
         private void OpenRenameDialog(string currentTitle, Action<string> callback)
         {
+            OpenComponentTitleDialog("Rename", currentTitle, callback);
+        }
+
+        private void OpenNewComponentDialog(string dialogTitle, Action<string> callback)
+        {
+            OpenComponentTitleDialog(dialogTitle, string.Empty, callback);
+        }
+
+        private void OpenComponentTitleDialog(string dialogTitle, string currentTitle, Action<string> callback)
+        {
             var viewModel = new ComponentTitleViewModel(currentTitle, _windowService);
-            _windowService.Open(viewModel, () =>
+            _windowService.Open(dialogTitle, viewModel, () =>
             {
                 if (viewModel.Result)
                 {

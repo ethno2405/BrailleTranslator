@@ -29,6 +29,14 @@ namespace BrailleTranslator.Desktop.Model
 
         public Inline Inline { get; set; }
 
+        public override bool CanCreateChildComponent
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         protected override TextElement Payload
         {
             get
@@ -58,6 +66,11 @@ namespace BrailleTranslator.Desktop.Model
         protected override bool CanMoveDown()
         {
             return false;
+        }
+
+        protected override TextElement CreateChildElement()
+        {
+            throw new NotSupportedException();
         }
     }
 }

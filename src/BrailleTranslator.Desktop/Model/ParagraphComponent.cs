@@ -34,6 +34,14 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public override bool CanCreateChildComponent
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         protected Paragraph Paragraph
         {
             get
@@ -98,6 +106,11 @@ namespace BrailleTranslator.Desktop.Model
             if (paragraph == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
 
             InitializeInlineComponent(paragraph);
+        }
+
+        protected override TextElement CreateChildElement()
+        {
+            throw new NotSupportedException();
         }
 
         private void InitializeInlineComponent(Paragraph paragraph)

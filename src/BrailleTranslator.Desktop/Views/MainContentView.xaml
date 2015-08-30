@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <FontFamily x:Key="Braille">/BrailleTranslator.Desktop;component/fonts/#Braille Normal</FontFamily>
         <converters:RootTreeViewConverter x:Key="RootTreeViewConverter" />
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BoolValueVisibilityConverter x:Key="BooleanToVisibilityConverter" FalseValue="Collapsed" />
     </UserControl.Resources>
 
     <TabControl ItemsSource="{Binding Project.Documents}" SelectedItem="{Binding Project.CurrentDocument}">
@@ -75,6 +75,7 @@
                                         </i:Interaction.Triggers>
                                         <TextBlock.ContextMenu>
                                             <ContextMenu>
+                                                <MenuItem Header="{Binding CreateChildText}" Command="{Binding CreateChildCommand, Mode=OneWay}" Visibility="{Binding CanCreateChildComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                                 <MenuItem Header="Delete" Command="{Binding DeleteComponentCommand, Mode=OneWay}" InputGestureText="Del" />
                                                 <MenuItem Header="Rename" Command="{Binding RenameCommand, Mode=OneWay}" InputGestureText="F2" />
                                                 <MenuItem Header="Move up" Command="{Binding MoveUpCommand,Mode=OneWay}" InputGestureText="Ctrl + Up" />

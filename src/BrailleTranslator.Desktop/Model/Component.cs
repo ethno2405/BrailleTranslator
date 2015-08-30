@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Documents;
@@ -35,6 +36,8 @@ namespace BrailleTranslator.Desktop.Model
 
         public ICommand MoveDownCommand { get; private set; }
 
+        public ICommand CreateChildCommand { get; private set; }
+
         public virtual ObservableCollection<Component> Children { get; private set; } = new ObservableCollection<Component>();
 
         public Component Parent
@@ -46,6 +49,16 @@ namespace BrailleTranslator.Desktop.Model
             set
             {
                 Set(nameof(Parent), ref _parent, value);
+            }
+        }
+
+        public virtual string CreateChildText { get; } = "New component";
+
+        public virtual bool CanCreateChildComponent
+        {
+            get
+            {
+                return true;
             }
         }
 
@@ -66,6 +79,24 @@ namespace BrailleTranslator.Desktop.Model
             if (!CanDelete()) return;
 
             Parent?.RemoveChild(this);
+        }
+
+        protected bool IsLast()
+        {
+            var parent = Parent;
+            while (parent.Parent != null && parent.Children.Count > 1)
+            {
+                parent = parent.Parent;
+            }
+
+            var last = parent.Children.LastOrDefault();
+
+            while (last != null && last != this)
+            {
+                last = last.Children.LastOrDefault();
+            }
+
+            return this == last;
         }
 
         protected abstract void RemoveChild(Component component);
@@ -134,11 +165,26 @@ namespace BrailleTranslator.Desktop.Model
             Parent.Children.Move(currentIndex, currentIndex + 1);
         }
 
+        protected abstract TextElement CreateChildElement();
+
+        private void CreateChild()
+        {
+            var element = CreateChildElement();
+
+            if (element == null) throw new InvalidOperationException("CreateChildElement() returned null.");
+
+            Messenger.Default.Send(new NotificationMessageAction<string>(this, CreateChildText, t =>
+            {
+                Children.First(x => x.Payload == element).Title = t;
+            }), Tokens.NewComponent);
+        }
+
         private void RegisterCommands()
         {
             DeleteComponentCommand = new RelayCommand(Delete, CanDelete);
             MoveUpCommand = new RelayCommand(MoveUp, CanMoveUp);
             MoveDownCommand = new RelayCommand(MoveDown, CanMoveDown);
+            CreateChildCommand = new RelayCommand(CreateChild, () => CanCreateChildComponent);
         }
 
         private void SubscribeForMessages()

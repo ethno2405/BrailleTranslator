@@ -11,17 +11,17 @@
         <Menu>
             <MenuItem Header="File">
                 <MenuItem InputGestureText="Ctrl + N" Header="New" />
-                <MenuItem InputGestureText="Ctrl + O" Command="{Binding OpenCommand}" Header="Open" />
-                <MenuItem InputGestureText="Ctrl + S" Command="{Binding SaveCommand}" Header="Save" />
-                <MenuItem InputGestureText="Ctrl + Shift + S" Command="{Binding SaveCommand}" Header="Save As.." />
+                <MenuItem InputGestureText="Ctrl + O" Command="{Binding FileMenuViewModel.OpenCommand}" Header="Open" />
+                <MenuItem InputGestureText="Ctrl + S" Command="{Binding FileMenuViewModel.SaveCommand}" Header="Save" />
+                <MenuItem InputGestureText="Ctrl + Shift + S" Command="{Binding FileMenuViewModel.SaveCommand}" Header="Save As.." />
 
                 <Separator />
 
-                <MenuItem InputGestureText="Ctrl + P" Command="{Binding PrintCommand}" Header="Print" />
+                <MenuItem InputGestureText="Ctrl + P" Command="{Binding FileMenuViewModel.PrintCommand}" Header="Print" />
 
                 <Separator />
 
-                <MenuItem InputGestureText="Alt + F4" Command="{Binding ExitCommand}" Header="Exit" />
+                <MenuItem InputGestureText="Alt + F4" Command="{Binding FileMenuViewModel.ExitCommand}" Header="Exit" />
             </MenuItem>
 
             <MenuItem Header="Edit">
@@ -34,9 +34,9 @@
                 <Separator />
 
                 <MenuItem Header="Insert">
-                    <MenuItem InputGestureText="Ctrl + Enter" Header="New Paragraph" />
-                    <MenuItem InputGestureText="Ctrl + Shift + Enter" Header="New Section" />
-                    <MenuItem InputGestureText="Ctrl + Shift + Alt + Enter" Header="New Volume" />
+                    <MenuItem InputGestureText="Ctrl + Enter" Command="{Binding EditMenuViewModel.NewParagraphCommand}" Header="New paragraph" />
+                    <MenuItem InputGestureText="Ctrl + Shift + Enter" Command="{Binding EditMenuViewModel.NewSectionCommand}" Header="New section" />
+                    <MenuItem InputGestureText="Ctrl + Shift + Alt + Enter" Command="{Binding EditMenuViewModel.NewVolumeCommand}" Header="New volume" />
                 </MenuItem>
             </MenuItem>
 

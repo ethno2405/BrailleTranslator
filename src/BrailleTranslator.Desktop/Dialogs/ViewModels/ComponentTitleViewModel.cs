@@ -16,7 +16,6 @@ namespace BrailleTranslator.Desktop.Dialogs.ViewModels
 
         public ComponentTitleViewModel(string title, IWindowService windowService)
         {
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             if (windowService == null) throw new ArgumentNullException(nameof(windowService));
 
             _title = title;

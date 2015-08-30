@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Documents;
+using System.Windows.Input;
+using BrailleTranslator.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -7,20 +10,32 @@ namespace BrailleTranslator.Desktop.Model
     {
         public SectionComponent()
         {
+            SubscribeForMessages();
         }
 
         public SectionComponent(string title) : base(title)
         {
+            SubscribeForMessages();
         }
 
         public SectionComponent(string title, Section section) : base(title, section)
         {
             PopulateChildren(section.Blocks);
+            SubscribeForMessages();
         }
 
         public SectionComponent(Section section) : base(section)
         {
             PopulateChildren(section.Blocks);
+            SubscribeForMessages();
+        }
+
+        public override string CreateChildText
+        {
+            get
+            {
+                return "New paragraph";
+            }
         }
 
         protected Section Section
@@ -87,6 +102,27 @@ namespace BrailleTranslator.Desktop.Model
 
             base.MoveDown();
             IsMoving = false;
+        }
+
+        protected override TextElement CreateChildElement()
+        {
+            var paragraph = new Paragraph(new Run(string.Empty));
+
+            Section.Blocks.Add(paragraph);
+
+            return paragraph;
+        }
+
+        private void SubscribeForMessages()
+        {
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Enter, ModifierKeys.Control),
+                m =>
+                {
+                    if (IsLast())
+                    {
+                        CreateChildCommand.Execute(null);
+                    }
+                });
         }
     }
 }

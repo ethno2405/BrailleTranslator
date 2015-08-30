@@ -6,10 +6,11 @@ namespace BrailleTranslator.Desktop.Services
 {
     public class WindowService : IWindowService
     {
-        public void Open(object dataContext, Action callback)
+        public void Open(string title, object dataContext, Action callback)
         {
             var window = new Window();
 
+            window.Title = title;
             window.DataContext = dataContext;
             window.Content = dataContext;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -18,6 +19,7 @@ namespace BrailleTranslator.Desktop.Services
             window.SizeToContent = SizeToContent.WidthAndHeight;
             window.Closing += (s, e) => { callback?.Invoke(); };
             window.Show();
+            window.Focus();
         }
 
         public void Close(object dataContext)

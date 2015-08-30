@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Documents;
+using System.Windows.Input;
+using BrailleTranslator.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -14,6 +17,7 @@ namespace BrailleTranslator.Desktop.Model
         public FlowDocumentWrapper()
         {
             DocumentRoot = this;
+            SubscribeForMessages();
         }
 
         public FlowDocumentWrapper(string title) : base(title)
@@ -23,6 +27,7 @@ namespace BrailleTranslator.Desktop.Model
             _document = _defaultDocument;
 
             PopulateChildren(_document.Blocks);
+            SubscribeForMessages();
         }
 
         public FlowDocument Document
@@ -59,6 +64,14 @@ namespace BrailleTranslator.Desktop.Model
             set
             {
                 Set(nameof(CaretPosition), ref _caretPosition, value);
+            }
+        }
+
+        public override string CreateChildText
+        {
+            get
+            {
+                return "New volume";
             }
         }
 
@@ -102,6 +115,19 @@ namespace BrailleTranslator.Desktop.Model
         protected override void PopulateChildren(TextElement textElement)
         {
             throw new NotSupportedException();
+        }
+
+        protected override TextElement CreateChildElement()
+        {
+            var volume = new Volume(new Section(new Paragraph(new Run(string.Empty))));
+            Document.Blocks.Add(volume);
+
+            return volume;
+        }
+
+        private void SubscribeForMessages()
+        {
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Enter, ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt), m => CreateChildCommand.Execute(null));
         }
     }
 }
