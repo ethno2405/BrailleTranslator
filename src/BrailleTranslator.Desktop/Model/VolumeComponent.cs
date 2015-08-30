@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
 {
@@ -31,6 +32,15 @@ namespace BrailleTranslator.Desktop.Model
             (Block as Volume).Blocks.Remove(blockComponent.Block);
 
             Children.Remove(component);
+        }
+
+        protected override void PopulateChildren(TextElement textElement)
+        {
+            var volume = textElement as Volume;
+
+            if (volume == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
+
+            PopulateChildren(volume.Blocks);
         }
     }
 }

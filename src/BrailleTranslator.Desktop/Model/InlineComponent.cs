@@ -29,6 +29,18 @@ namespace BrailleTranslator.Desktop.Model
 
         public Inline Inline { get; set; }
 
+        protected override TextElement Payload
+        {
+            get
+            {
+                return Inline;
+            }
+            set
+            {
+                Inline = (Inline)value;
+            }
+        }
+
         public override void Delete()
         {
         }

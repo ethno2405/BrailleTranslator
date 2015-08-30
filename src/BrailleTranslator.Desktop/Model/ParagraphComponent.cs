@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
@@ -25,6 +26,14 @@ namespace BrailleTranslator.Desktop.Model
 
         public InlineComponent InlineComponent { get; set; }
 
+        public override ObservableCollection<Component> Children
+        {
+            get
+            {
+                return new ObservableCollection<Component>();
+            }
+        }
+
         protected Paragraph Paragraph
         {
             get
@@ -48,11 +57,27 @@ namespace BrailleTranslator.Desktop.Model
             InlineComponent = null;
         }
 
+        protected override void PopulateChildren(TextElement textElement)
+        {
+            var paragraph = textElement as Paragraph;
+
+            if (paragraph == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
+
+            InitializeInlineComponent(paragraph);
+        }
+
         private void InitializeInlineComponent(Paragraph paragraph)
         {
-            if (paragraph.Inlines.FirstInline != null)
+            var inline = paragraph.Inlines.FirstInline;
+
+            if (inline == null)
             {
-                InlineComponent = ComponentFactory.CreateComponent(paragraph.Inlines.FirstInline) as InlineComponent;
+                InlineComponent = null;
+            }
+
+            if (InlineComponent == null)
+            {
+                InlineComponent = ComponentFactory.CreateComponent(inline) as InlineComponent;
                 InlineComponent.Parent = this;
             }
         }

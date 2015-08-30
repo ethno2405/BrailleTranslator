@@ -127,6 +127,7 @@
     <Compile Include="Dialogs\Views\ComponentTitleView.xaml.cs">
       <DependentUpon>ComponentTitleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\ObservableObjectExtensions.cs" />
     <Compile Include="Extensions\SimpleIocExtensions.cs" />
     <Compile Include="Helpers\ComponentFactory.cs" />

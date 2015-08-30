@@ -33,5 +33,14 @@ namespace BrailleTranslator.Desktop.Model
 
             Children.Remove(component);
         }
+
+        protected override void PopulateChildren(TextElement textElement)
+        {
+            var section = textElement as Section;
+
+            if (section == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
+
+            PopulateChildren(section.Blocks);
+        }
     }
 }

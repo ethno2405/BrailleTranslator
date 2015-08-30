@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Helpers;
@@ -32,7 +33,7 @@ namespace BrailleTranslator.Desktop.Model
 
         public ICommand DeleteComponentCommand { get; }
 
-        public ObservableCollection<Component> Children { get; } = new ObservableCollection<Component>();
+        public virtual ObservableCollection<Component> Children { get; private set; } = new ObservableCollection<Component>();
 
         public Component Parent
         {
@@ -54,6 +55,8 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        protected abstract TextElement Payload { get; set; }
+
         public virtual void Delete()
         {
             if (CanDelete())
@@ -64,14 +67,36 @@ namespace BrailleTranslator.Desktop.Model
 
         protected abstract void RemoveChild(Component component);
 
+        protected abstract void PopulateChildren(TextElement textElement);
+
         protected void PopulateChildren(IEnumerable<TextElement> textElements)
         {
+            if (textElements.Count() < Children.Count)
+            {
+                var childrenToRemove = Children.Where(x => !textElements.Contains(x.Payload));
+
+                if (childrenToRemove.Any(x => x.IsSelected))
+                {
+                }
+
+                Children.RemoveRange(childrenToRemove);
+            }
+
             foreach (var element in textElements)
             {
-                var child = ComponentFactory.CreateComponent(element);
+                var child = Children.FirstOrDefault(x => x.Payload != null && x.Payload == element);
 
-                child.Parent = this;
-                Children.Add(child);
+                if (child == null)
+                {
+                    child = ComponentFactory.CreateComponent(element);
+
+                    child.Parent = this;
+                    Children.Add(child);
+                }
+                else
+                {
+                    child.PopulateChildren(element);
+                }
             }
         }
 

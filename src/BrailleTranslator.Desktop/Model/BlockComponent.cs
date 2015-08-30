@@ -36,6 +36,18 @@ namespace BrailleTranslator.Desktop.Model
 
         public Block Block { get; set; }
 
+        protected override TextElement Payload
+        {
+            get
+            {
+                return Block;
+            }
+            set
+            {
+                Block = (Block)value;
+            }
+        }
+
         private void SubscribeForEvents()
         {
             this.ForProperty(nameof(IsSelected))

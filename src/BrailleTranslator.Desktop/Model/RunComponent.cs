@@ -15,15 +15,19 @@ namespace BrailleTranslator.Desktop.Model
 
         public RunComponent(string title, Run run) : base(title, run)
         {
-            Text = run.Text;
         }
 
         public RunComponent(Run run) : base(run)
         {
-            Text = run.Text;
         }
 
-        public string Text { get; set; }
+        public string Text
+        {
+            get
+            {
+                return (Inline as Run).Text;
+            }
+        }
 
         public override bool IsVisible
         {
@@ -36,6 +40,15 @@ namespace BrailleTranslator.Desktop.Model
         protected override void RemoveChild(Component component)
         {
             throw new NotSupportedException("Run component does not have child components");
+        }
+
+        protected override void PopulateChildren(TextElement textElement)
+        {
+            var run = textElement as Run;
+
+            if (run == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
+
+            Inline = run;
         }
     }
 }

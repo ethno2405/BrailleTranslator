@@ -24,6 +24,9 @@ namespace BrailleTranslator.Desktop.Model
             _flowDocument.PropertyChanged += FlowDocumentPropertyChanged;
             CloseDocumentCommand = new RelayCommand(CloseDocument);
             Parent = parent;
+
+            this.ForProperty(FlowDocument, nameof(FlowDocument.Title))
+                .Subscribe(() => { Name = FlowDocument.Title; });
         }
 
         ~Document()

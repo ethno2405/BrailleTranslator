@@ -35,7 +35,6 @@ namespace BrailleTranslator.Desktop.Model
             {
                 _document = value;
 
-                Children.Clear();
                 PopulateChildren(_document.Blocks);
 
                 RaisePropertyChanged(nameof(Document));
@@ -63,6 +62,17 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        protected override TextElement Payload
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+            }
+        }
+
         protected override bool CanDelete()
         {
             return false;
@@ -77,6 +87,11 @@ namespace BrailleTranslator.Desktop.Model
             Document.Blocks.Remove(blockComponent.Block);
 
             Children.Remove(component);
+        }
+
+        protected override void PopulateChildren(TextElement textElement)
+        {
+            throw new NotSupportedException();
         }
     }
 }

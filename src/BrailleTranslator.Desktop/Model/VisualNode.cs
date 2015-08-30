@@ -60,7 +60,13 @@ namespace BrailleTranslator.Desktop.Model
             }
             set
             {
-                Set(nameof(IsSelected), ref _isSelected, value);
+                if (Set(nameof(IsSelected), ref _isSelected, value))
+                {
+                    if (_isSelected)
+                    {
+                        Messenger.Default.Send(new GenericMessage<string>(this, _title), Tokens.IsSelected);
+                    }
+                }
             }
         }
 
@@ -98,6 +104,14 @@ namespace BrailleTranslator.Desktop.Model
                 if (IsSelected)
                 {
                     ExecuteRenameCommand();
+                }
+            });
+
+            Messenger.Default.Register<GenericMessage<string>>(this, Tokens.IsSelected, n =>
+            {
+                if (n.Sender != this)
+                {
+                    IsSelected = false;
                 }
             });
         }

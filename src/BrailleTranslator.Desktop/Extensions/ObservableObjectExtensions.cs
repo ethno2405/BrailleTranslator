@@ -9,5 +9,10 @@ namespace GalaSoft.MvvmLight
         {
             return new PropertyChangedHandler(propChanged, propertyName);
         }
+
+        public static PropertyChangedHandler ForProperty(this INotifyPropertyChanged propChanged, INotifyPropertyChanged observable, string propertyName)
+        {
+            return new PropertyChangedHandler(observable, propertyName);
+        }
     }
 }
