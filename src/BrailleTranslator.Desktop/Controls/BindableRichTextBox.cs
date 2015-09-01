@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using BrailleTranslator.Desktop.Model;
 
 namespace BrailleTranslator.Desktop.Controls
@@ -18,14 +18,6 @@ namespace BrailleTranslator.Desktop.Controls
             typeof(TextPointer),
             typeof(BindableRichTextBox),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnCaretPositionChanged));
-
-        public BindableRichTextBox()
-        {
-            AddHandler(PreviewKeyDownEvent, new RoutedEventHandler(SetCaretPositionToViewModel));
-            AddHandler(PreviewMouseDownEvent, new RoutedEventHandler(SetCaretPositionToViewModel));
-
-            BindableCaretPosition = CaretPosition;
-        }
 
         public FlowDocument BindableDocument
         {
@@ -76,6 +68,20 @@ namespace BrailleTranslator.Desktop.Controls
             BindableDocument = Document;
         }
 
+        protected override void OnPreviewKeyUp(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+
+            BindableCaretPosition = CaretPosition;
+        }
+
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseUp(e);
+
+            BindableCaretPosition = CaretPosition;
+        }
+
         private static void OnCaretPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as BindableRichTextBox;
@@ -95,10 +101,6 @@ namespace BrailleTranslator.Desktop.Controls
             if (control == null) return;
 
             control.Document = e.NewValue as FlowDocument;
-        }
-
-        private void SetCaretPositionToViewModel(object sender, EventArgs e)
-        {
         }
     }
 }

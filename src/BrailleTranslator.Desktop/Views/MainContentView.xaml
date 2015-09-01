@@ -92,8 +92,8 @@
 
                     <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument.Document, Mode=TwoWay}"
-                                                      Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}"
                                                       BindableCaretPosition="{Binding FlowDocument.CaretPosition, Mode=TwoWay}"
+                                                      Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}"
                                                       AcceptsTab="True">
                             <controls:BindableRichTextBox.ContextMenu>
                                 <ContextMenu>

@@ -16,6 +16,8 @@ namespace BrailleTranslator.Desktop.Model
     {
         private Component _parent;
 
+
+
         public Component()
         {
             RegisterCommands();
@@ -52,6 +54,19 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public bool IsCaretInBetween
+        {
+            get
+            {
+                if (DocumentRoot.CaretPosition == null) return false;
+
+                var isAfterFirst = ContentStart.GetOffsetToPosition(DocumentRoot.CaretPosition) >= 0;
+                var isBeforeLast = ContentEnd.GetOffsetToPosition(DocumentRoot.CaretPosition) <= 0;
+
+                return isAfterFirst && isBeforeLast;
+            }
+        }
+
         public virtual string CreateChildText { get; } = "New component";
 
         public virtual bool CanCreateChildComponent
@@ -63,6 +78,22 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         protected static bool IsMoving { get; set; }
+
+        protected virtual TextPointer ContentStart
+        {
+            get
+            {
+                return Payload.ContentStart;
+            }
+        }
+
+        protected virtual TextPointer ContentEnd
+        {
+            get
+            {
+                return Payload.ContentEnd;
+            }
+        }
 
         protected IComponentFactory ComponentFactory
         {
