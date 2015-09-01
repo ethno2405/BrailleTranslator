@@ -16,12 +16,10 @@ namespace BrailleTranslator.Desktop.Model
 
         public ParagraphComponent(string title, Paragraph paragraph) : base(title, paragraph)
         {
-            InitializeInlineComponent(paragraph);
         }
 
         public ParagraphComponent(Paragraph paragraph) : base(paragraph)
         {
-            InitializeInlineComponent(paragraph);
         }
 
         public InlineComponent InlineComponent { get; set; }
@@ -120,13 +118,17 @@ namespace BrailleTranslator.Desktop.Model
             if (inline == null)
             {
                 InlineComponent = null;
+                return;
             }
 
             if (InlineComponent == null)
             {
                 InlineComponent = ComponentFactory.CreateComponent(inline) as InlineComponent;
                 InlineComponent.Parent = this;
+                return;
             }
+
+            InlineComponent.Inline = inline;
         }
     }
 }

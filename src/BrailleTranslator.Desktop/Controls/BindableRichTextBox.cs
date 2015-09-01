@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -54,9 +55,22 @@ namespace BrailleTranslator.Desktop.Controls
         {
             base.OnTextChanged(e);
 
+            var change = e.Changes.FirstOrDefault();
+
+            if (change != null && change.AddedLength == 0 && change.Offset == 0 && change.RemovedLength > 0)
+            {
+                Document.Blocks.Clear();
+            }
+
+            if (!Document.Blocks.All(x => x.GetType() == typeof(Volume)))
+            {
+                Document.Blocks.Clear();
+            }
+
             if (Document.Blocks.Count == 0)
             {
                 Document.Blocks.Add(new Volume(new Section(new Paragraph(new Run(string.Empty)))));
+                return;
             }
 
             BindableDocument = Document;

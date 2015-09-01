@@ -20,13 +20,11 @@ namespace BrailleTranslator.Desktop.Model
 
         public VolumeComponent(string title, Volume volume) : base(title, volume)
         {
-            PopulateChildren(volume.Blocks);
             SubscribeForMessages();
         }
 
         public VolumeComponent(Volume volume) : base(volume)
         {
-            PopulateChildren(volume.Blocks);
             SubscribeForMessages();
         }
 

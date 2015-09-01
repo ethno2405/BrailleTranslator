@@ -26,7 +26,6 @@ namespace BrailleTranslator.Desktop.Model
 
             _document = _defaultDocument;
 
-            PopulateChildren(_document.Blocks);
             SubscribeForMessages();
         }
 
