@@ -152,6 +152,8 @@
     <Compile Include="Model\VisualNode.cs" />
     <Compile Include="Model\Volume.cs" />
     <Compile Include="Model\VolumeComponent.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\IWindowService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\EditMenuViewModel.cs" />

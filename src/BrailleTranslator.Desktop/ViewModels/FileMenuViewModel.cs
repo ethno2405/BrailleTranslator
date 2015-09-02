@@ -1,16 +1,18 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Input;
-using BrailleTranslator.Desktop.Messages;
+﻿using BrailleTranslator.Desktop.Messages;
+using BrailleTranslator.Desktop.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
+using System;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
     public class FileMenuViewModel : ViewModelBase
     {
-        private string _selectedPath;
+        public static FileService fileService = new FileService();
+        public string _selectedPath;
 
         private string _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -60,9 +62,20 @@ namespace BrailleTranslator.Desktop.ViewModels
             var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
 
             dialog.Filter = "Braille Files (*.brf)|*.brf|Text Files (*.txt)|*.txt";
-            dialog.ShowDialog();
+            //dialog.ShowDialog();
+            //check result of the dialog
+            if (dialog.ShowDialog() == true)
+            {
+                SelectedPath = dialog.FileName;
+                var fileAsString = fileService.Open(SelectedPath);
+            }
 
-            SelectedPath = dialog.FileName;
+            //how to find BindableRichTextBox??????
+            //how to rich UI element via viewmodel???
+
+            //Controls.BindableRichTextBox rtb = new Controls.BindableRichTextBox();
+            //rtb = App.Current.Windows[0].FindName("TextContainer") as Controls.BindableRichTextBox;
+            //rtb.Document.Blocks.Add(new Volume(new Section(new Paragraph(new Run(aaa)))));
         }
 
         private void ExecuteSaveFileDialog()
@@ -73,6 +86,14 @@ namespace BrailleTranslator.Desktop.ViewModels
             dialog.ShowDialog();
 
             SelectedPath = dialog.FileName;
+            string content = CheckFileValidation();
+            fileService.Save(content, SelectedPath);
+        }
+
+        private string CheckFileValidation()
+        {
+            //how to find BindableRichTextBox??????
+            throw new NotImplementedException();
         }
 
         private void ExecutePrintFileDialog()
