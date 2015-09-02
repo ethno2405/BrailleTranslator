@@ -90,7 +90,7 @@
 
                     <GridSplitter ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="5" Height="Auto" Margin="0" />
 
-                    <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument.Document, Mode=TwoWay}"
                                                       Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}"
                                                       BindableCaretPosition="{Binding FlowDocument.CaretPosition, Mode=TwoWay}"
@@ -119,7 +119,7 @@
 
                     <GridSplitter ResizeDirection="Rows" Grid.Row="1" Grid.Column="2" Width="Auto" Height="5" Margin="0" HorizontalAlignment="Stretch" />
 
-                    <ScrollViewer Name="BrailleContainer" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <ScrollViewer Name="BrailleContainer" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <TextBox Text="{Binding FlowDocument.PlainText, Mode=OneWay}" AcceptsReturn="True" FontFamily="{DynamicResource Braille}" IsReadOnly="True" />
                     </ScrollViewer>
                 </Grid>
