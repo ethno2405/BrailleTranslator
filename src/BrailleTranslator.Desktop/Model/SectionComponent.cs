@@ -20,13 +20,11 @@ namespace BrailleTranslator.Desktop.Model
 
         public SectionComponent(string title, Section section) : base(title, section)
         {
-            PopulateChildren(section.Blocks);
             SubscribeForMessages();
         }
 
         public SectionComponent(Section section) : base(section)
         {
-            PopulateChildren(section.Blocks);
             SubscribeForMessages();
         }
 

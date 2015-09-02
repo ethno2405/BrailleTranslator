@@ -44,11 +44,7 @@ namespace BrailleTranslator.Desktop.Model
 
         protected override void PopulateChildren(TextElement textElement)
         {
-            var run = textElement as Run;
-
-            if (run == null) throw new ArgumentException(string.Concat("Text element is not of type ", GetType().FullName), nameof(textElement));
-
-            Inline = run;
+            throw new NotSupportedException();
         }
     }
 }

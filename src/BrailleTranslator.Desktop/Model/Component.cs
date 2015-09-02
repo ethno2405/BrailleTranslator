@@ -16,6 +16,8 @@ namespace BrailleTranslator.Desktop.Model
     {
         private Component _parent;
 
+
+
         public Component()
         {
             RegisterCommands();
@@ -52,6 +54,19 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public bool IsCaretInBetween
+        {
+            get
+            {
+                if (DocumentRoot.CaretPosition == null) return false;
+
+                var isAfterFirst = ContentStart.GetOffsetToPosition(DocumentRoot.CaretPosition) >= 0;
+                var isBeforeLast = ContentEnd.GetOffsetToPosition(DocumentRoot.CaretPosition) <= 0;
+
+                return isAfterFirst && isBeforeLast;
+            }
+        }
+
         public virtual string CreateChildText { get; } = "New component";
 
         public virtual bool CanCreateChildComponent
@@ -63,6 +78,22 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         protected static bool IsMoving { get; set; }
+
+        protected virtual TextPointer ContentStart
+        {
+            get
+            {
+                return Payload.ContentStart;
+            }
+        }
+
+        protected virtual TextPointer ContentEnd
+        {
+            get
+            {
+                return Payload.ContentEnd;
+            }
+        }
 
         protected IComponentFactory ComponentFactory
         {
@@ -84,7 +115,7 @@ namespace BrailleTranslator.Desktop.Model
         protected bool IsLast()
         {
             var parent = Parent;
-            while (parent.Parent != null && parent.Children.Count > 1)
+            while (parent.Parent != null)
             {
                 parent = parent.Parent;
             }
@@ -107,29 +138,14 @@ namespace BrailleTranslator.Desktop.Model
         {
             if (IsMoving) return;
 
-            if (textElements.Count() < Children.Count)
-            {
-                var childrenToRemove = Children.Where(x => !textElements.Contains(x.Payload));
+            if (!textElements.Any()) return;
 
-                Children.RemoveRange(childrenToRemove);
+            if (textElements.Count() <= Children.Count)
+            {
+                RemoveDeletedElement(textElements);
             }
 
-            foreach (var element in textElements)
-            {
-                var child = Children.FirstOrDefault(x => x.Payload != null && x.Payload == element);
-
-                if (child == null)
-                {
-                    child = ComponentFactory.CreateComponent(element);
-
-                    child.Parent = this;
-                    Children.Add(child);
-                }
-                else
-                {
-                    child.PopulateChildren(element);
-                }
-            }
+            IncludeElements(textElements);
         }
 
         protected virtual bool CanDelete()
@@ -166,6 +182,31 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         protected abstract TextElement CreateChildElement();
+
+        private void RemoveDeletedElement(IEnumerable<TextElement> textElements)
+        {
+            var childrenToRemove = Children.Where(x => !textElements.Contains(x.Payload));
+
+            Children.RemoveRange(childrenToRemove);
+        }
+
+        private void IncludeElements(IEnumerable<TextElement> textElements)
+        {
+            foreach (var element in textElements)
+            {
+                var child = Children.FirstOrDefault(x => x.Payload == element);
+
+                if (child == null)
+                {
+                    child = ComponentFactory.CreateComponent(element);
+
+                    child.Parent = this;
+                    Children.Add(child);
+                }
+
+                child.PopulateChildren(element);
+            }
+        }
 
         private void CreateChild()
         {

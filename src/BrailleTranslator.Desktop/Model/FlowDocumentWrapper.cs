@@ -10,9 +10,9 @@ namespace BrailleTranslator.Desktop.Model
     {
         private static readonly FlowDocument _defaultDocument = new FlowDocument(new Volume(new Section(new Paragraph(new Run(string.Empty)))));
 
-        private FlowDocument _document;
-
         private TextPointer _caretPosition;
+
+        private FlowDocument _document;
 
         public FlowDocumentWrapper()
         {
@@ -22,11 +22,9 @@ namespace BrailleTranslator.Desktop.Model
 
         public FlowDocumentWrapper(string title) : base(title)
         {
-            DocumentRoot = this;
-
             _document = _defaultDocument;
 
-            PopulateChildren(_document.Blocks);
+            DocumentRoot = this;
             SubscribeForMessages();
         }
 
@@ -47,11 +45,20 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+
         public string PlainText
         {
             get
             {
                 return new TextRange(_document.ContentStart, _document.ContentEnd).Text;
+            }
+        }
+
+        public override string CreateChildText
+        {
+            get
+            {
+                return "New volume";
             }
         }
 
@@ -63,15 +70,26 @@ namespace BrailleTranslator.Desktop.Model
             }
             set
             {
-                Set(nameof(CaretPosition), ref _caretPosition, value);
+                if (Set(nameof(CaretPosition), ref _caretPosition, value))
+                {
+                    RaisePropertyChanged(nameof(IsCaretInBetween));
+                }
             }
         }
 
-        public override string CreateChildText
+        protected override TextPointer ContentStart
         {
             get
             {
-                return "New volume";
+                return Document.ContentStart;
+            }
+        }
+
+        protected override TextPointer ContentEnd
+        {
+            get
+            {
+                return Document.ContentEnd;
             }
         }
 

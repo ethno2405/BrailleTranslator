@@ -24,6 +24,10 @@ namespace BrailleTranslator.Desktop.Model
 
             RegisterCommands();
             SubscribeForMessages();
+
+            this.ForProperty(nameof(IsSelected))
+                .When(() => IsSelected)
+                .Subscribe(() => SelectedNode = this);
         }
 
         public VisualNode(string title)
@@ -34,6 +38,10 @@ namespace BrailleTranslator.Desktop.Model
 
             RegisterCommands();
             SubscribeForMessages();
+
+            this.ForProperty(nameof(IsSelected))
+                .When(() => IsSelected)
+                .Subscribe(() => SelectedNode = this);
         }
 
         public ICommand RenameCommand { get; private set; }
@@ -96,6 +104,8 @@ namespace BrailleTranslator.Desktop.Model
                 Set(nameof(Title), ref _title, value);
             }
         }
+
+        protected static VisualNode SelectedNode { get; set; }
 
         private void SubscribeForMessages()
         {
