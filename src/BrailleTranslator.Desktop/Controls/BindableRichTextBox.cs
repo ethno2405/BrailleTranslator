@@ -19,6 +19,11 @@ namespace BrailleTranslator.Desktop.Controls
             typeof(BindableRichTextBox),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnCaretPositionChanged));
 
+        public static readonly DependencyProperty BindableTextSelectionProperty = DependencyProperty.Register("BindableTextSelection",
+            typeof(TextSelection),
+            typeof(BindableRichTextBox),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectionChanged));
+
         public FlowDocument BindableDocument
         {
             get
@@ -40,6 +45,18 @@ namespace BrailleTranslator.Desktop.Controls
             set
             {
                 SetValue(BindableCaretPositionProperty, value);
+            }
+        }
+
+        public TextSelection BindableTextSelection
+        {
+            get
+            {
+                return (TextSelection)GetValue(BindableTextSelectionProperty);
+            }
+            set
+            {
+                SetValue(BindableTextSelectionProperty, value);
             }
         }
 
@@ -82,14 +99,34 @@ namespace BrailleTranslator.Desktop.Controls
             BindableCaretPosition = CaretPosition;
         }
 
-        private static void OnCaretPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        protected override void OnSelectionChanged(RoutedEventArgs e)
+        {
+            base.OnSelectionChanged(e);
+
+            BindableTextSelection = Selection;
+        }
+
+        private static void OnSelectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as BindableRichTextBox;
 
             if (control == null) return;
 
-            control.Focus();
-            control.CaretPosition = e.NewValue as TextPointer;
+            var selection = e.NewValue as TextSelection;
+
+            if (selection == null) return;
+
+            control.Selection.Select(selection.Start, selection.End);
+        }
+
+        private static void OnCaretPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            //var control = d as BindableRichTextBox;
+
+            //if (control == null) return;
+
+            //control.Focus();
+            //control.CaretPosition = e.NewValue as TextPointer;
         }
 
         private static void OnDocumentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

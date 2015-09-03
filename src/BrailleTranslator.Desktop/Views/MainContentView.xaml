@@ -10,6 +10,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:b="clr-namespace:BrailleTranslator.Desktop.Behaviors"
+             xmlns:winControls="clr-namespace:System.Windows.Controls;assembly=MultiSelectTreeView"
              mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -46,33 +47,30 @@
                     </Grid.ColumnDefinitions>
 
                     <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TreeView ItemsSource="{Binding FlowDocument, Converter={StaticResource RootTreeViewConverter}}">
-                            <TreeView.ItemContainerStyle>
-                                <Style TargetType="TreeViewItem">
+                        <winControls:MultiSelectTreeView ItemsSource="{Binding FlowDocument, Converter={StaticResource RootTreeViewConverter}}">
+                            <winControls:MultiSelectTreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type winControls:MultiSelectTreeViewItem}">
                                     <Style.Setters>
+                                        <Setter Property="DisplayName" Value="{Binding Title, Mode=TwoWay}" />
                                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
-                                        <Setter Property="HorizontalAlignment" Value="Left" />
-                                        <Setter Property="VerticalAlignment" Value="Center" />
-                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        <Setter Property="IsEditable" Value="{Binding IsEditable}" />
+                                        <Setter Property="IsEditing" Value="{Binding IsEditing, Mode=TwoWay}" />
+                                        <Setter Property="ContentTemplateEdit">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <winControls:EditTextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="2,0,0,0" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
                                     </Style.Setters>
                                 </Style>
-                            </TreeView.ItemContainerStyle>
-                            <TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                            </winControls:MultiSelectTreeView.ItemContainerStyle>
+                            <winControls:MultiSelectTreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type model:Component}"  ItemsSource="{Binding Children}">
                                     <TextBlock Text="{Binding Title}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                                <ei:ChangePropertyAction PropertyName="IsSelected" Value="True" TargetObject="{Binding}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="GotFocus">
-                                                <ei:ChangePropertyAction PropertyName="IsFocused" Value="True" TargetObject="{Binding}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostFocus">
-                                                <ei:ChangePropertyAction PropertyName="IsFocused" Value="False" TargetObject="{Binding}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                         <TextBlock.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem Header="{Binding CreateChildText}" Command="{Binding CreateChildCommand, Mode=OneWay}" Visibility="{Binding CanCreateChildComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -84,8 +82,8 @@
                                         </TextBlock.ContextMenu>
                                     </TextBlock>
                                 </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
-                        </TreeView>
+                            </winControls:MultiSelectTreeView.Resources>
+                        </winControls:MultiSelectTreeView>
                     </ScrollViewer>
 
                     <GridSplitter ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="5" Height="Auto" Margin="0" />
@@ -93,6 +91,7 @@
                     <ScrollViewer Name="TextContainer" Grid.Row="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <controls:BindableRichTextBox BindableDocument="{Binding FlowDocument.Document, Mode=TwoWay}"
                                                       BindableCaretPosition="{Binding FlowDocument.CaretPosition, Mode=TwoWay}"
+                                                      BindableTextSelection="{Binding FlowDocument.Selection, Mode=TwoWay}"
                                                       Width="{Binding ActualWidth, ElementName=TextContainer, Mode=OneWay}"
                                                       AcceptsTab="True">
                             <controls:BindableRichTextBox.ContextMenu>

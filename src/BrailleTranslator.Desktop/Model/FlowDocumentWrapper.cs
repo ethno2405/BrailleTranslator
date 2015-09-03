@@ -14,6 +14,8 @@ namespace BrailleTranslator.Desktop.Model
 
         private FlowDocument _document;
 
+        private TextSelection _selection;
+
         public FlowDocumentWrapper()
         {
             DocumentRoot = this;
@@ -45,7 +47,6 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-
         public string PlainText
         {
             get
@@ -74,6 +75,18 @@ namespace BrailleTranslator.Desktop.Model
                 {
                     RaisePropertyChanged(nameof(IsCaretInBetween));
                 }
+            }
+        }
+
+        public TextSelection Selection
+        {
+            get
+            {
+                return _selection;
+            }
+            set
+            {
+                Set(nameof(Selection), ref _selection, value);
             }
         }
 

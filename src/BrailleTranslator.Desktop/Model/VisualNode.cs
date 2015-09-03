@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Messages;
 using GalaSoft.MvvmLight;
@@ -14,20 +13,15 @@ namespace BrailleTranslator.Desktop.Model
 
         private bool _isExpanded = true;
 
-        private bool _isFocused;
-
         private string _title;
+
+        private bool _isEditing;
 
         public VisualNode()
         {
             _title = GetType().Name;
 
             RegisterCommands();
-            SubscribeForMessages();
-
-            this.ForProperty(nameof(IsSelected))
-                .When(() => IsSelected)
-                .Subscribe(() => SelectedNode = this);
         }
 
         public VisualNode(string title)
@@ -37,11 +31,14 @@ namespace BrailleTranslator.Desktop.Model
             _title = title;
 
             RegisterCommands();
-            SubscribeForMessages();
 
-            this.ForProperty(nameof(IsSelected))
-                .When(() => IsSelected)
-                .Subscribe(() => SelectedNode = this);
+            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.F2, ModifierKeys.None), m =>
+            {
+                if (IsSelected)
+                {
+                    ExecuteRenameCommand();
+                }
+            });
         }
 
         public ICommand RenameCommand { get; private set; }
@@ -60,6 +57,26 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public virtual bool IsEditable
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public bool IsEditing
+        {
+            get
+            {
+                return _isEditing;
+            }
+            set
+            {
+                Set(nameof(IsEditing), ref _isEditing, value);
+            }
+        }
+
         public bool IsSelected
         {
             get
@@ -68,28 +85,7 @@ namespace BrailleTranslator.Desktop.Model
             }
             set
             {
-                if (Set(nameof(IsSelected), ref _isSelected, value))
-                {
-                    if (_isSelected)
-                    {
-                        Messenger.Default.Send(new GenericMessage<string>(this, _title), Tokens.IsSelected);
-                    }
-                }
-            }
-        }
-
-        public bool IsFocused
-        {
-            get
-            {
-                return _isFocused;
-            }
-            set
-            {
-                if (Set(nameof(IsFocused), ref _isFocused, value))
-                {
-                    MessageBox.Show(_isFocused.ToString());
-                }
+                Set(nameof(IsSelected), ref _isSelected, value);
             }
         }
 
@@ -105,27 +101,6 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected static VisualNode SelectedNode { get; set; }
-
-        private void SubscribeForMessages()
-        {
-            Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.F2, ModifierKeys.None), m =>
-            {
-                if (IsSelected)
-                {
-                    ExecuteRenameCommand();
-                }
-            });
-
-            Messenger.Default.Register<GenericMessage<string>>(this, Tokens.IsSelected, n =>
-            {
-                if (n.Sender != this)
-                {
-                    IsSelected = false;
-                }
-            });
-        }
-
         private void RegisterCommands()
         {
             RenameCommand = new RelayCommand(ExecuteRenameCommand);
@@ -133,9 +108,15 @@ namespace BrailleTranslator.Desktop.Model
 
         private void ExecuteRenameCommand()
         {
-            var message = new NotificationMessageAction<string>(Title, t => Title = t);
+            IsEditing = true;
 
-            Messenger.Default.Send(message, Tokens.Rename);
+            var currentTitle = Title;
+
+            this.ForProperty(nameof(Title))
+                .AndProperty(nameof(IsEditing))
+                .When(() => !IsEditing && string.IsNullOrEmpty(Title))
+                .Subscribe(() => Title = currentTitle)
+                .DisposeWhen(() => !IsEditing && !string.IsNullOrEmpty(Title));
         }
     }
 }

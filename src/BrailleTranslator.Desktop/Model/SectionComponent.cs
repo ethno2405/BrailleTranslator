@@ -79,7 +79,6 @@ namespace BrailleTranslator.Desktop.Model
 
             volume.Blocks.Remove(Block);
             volume.Blocks.InsertBefore(previous, Section);
-            IsSelected = true;
 
             base.MoveUp();
             IsMoving = false;
@@ -96,7 +95,6 @@ namespace BrailleTranslator.Desktop.Model
 
             volume.Blocks.Remove(Block);
             volume.Blocks.InsertAfter(next, Section);
-            IsSelected = true;
 
             base.MoveDown();
             IsMoving = false;

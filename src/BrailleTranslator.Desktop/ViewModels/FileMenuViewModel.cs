@@ -1,34 +1,39 @@
-﻿using BrailleTranslator.Desktop.Messages;
+﻿using System;
+using System.Windows.Controls;
+using System.Windows.Input;
+using BrailleTranslator.Desktop.Messages;
 using BrailleTranslator.Desktop.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
-using System;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
     public class FileMenuViewModel : ViewModelBase
     {
-        public static FileService fileService = new FileService();
-        public string _selectedPath;
+        private IFileService _fileService;
+
+        private string _selectedPath;
 
         private string _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-        public FileMenuViewModel()
+        public FileMenuViewModel(IFileService fileService)
         {
+            if (fileService == null) throw new ArgumentNullException(nameof(fileService));
+
+            _fileService = fileService;
+
             RegisterCommands();
             RegisterForMessages();
         }
 
-        public static ICommand OpenCommand { get; private set; }
+        public ICommand OpenCommand { get; private set; }
 
-        public static ICommand SaveCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
 
-        public static ICommand PrintCommand { get; private set; }
+        public ICommand PrintCommand { get; private set; }
 
-        public static ICommand ExitCommand { get; private set; }
+        public ICommand ExitCommand { get; private set; }
 
         public string SelectedPath
         {
@@ -64,10 +69,10 @@ namespace BrailleTranslator.Desktop.ViewModels
             dialog.Filter = "Braille Files (*.brf)|*.brf|Text Files (*.txt)|*.txt";
             //dialog.ShowDialog();
             //check result of the dialog
-            if (dialog.ShowDialog() == true)
+            if (dialog.ShowDialog().GetValueOrDefault())
             {
                 SelectedPath = dialog.FileName;
-                var fileAsString = fileService.Open(SelectedPath);
+                var fileAsString = _fileService.Open(SelectedPath);
             }
 
             //how to find BindableRichTextBox??????
@@ -83,11 +88,12 @@ namespace BrailleTranslator.Desktop.ViewModels
             var dialog = new SaveFileDialog { InitialDirectory = _defaultPath };
 
             dialog.Filter = "Braille Files (*.brf)|*.brf";
-            dialog.ShowDialog();
-
-            SelectedPath = dialog.FileName;
-            string content = CheckFileValidation();
-            fileService.Save(content, SelectedPath);
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                SelectedPath = dialog.FileName;
+                var content = CheckFileValidation();
+                _fileService.Save(content, SelectedPath);
+            }
         }
 
         private string CheckFileValidation()

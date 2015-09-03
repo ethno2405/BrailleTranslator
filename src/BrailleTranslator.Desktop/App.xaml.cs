@@ -15,8 +15,8 @@ namespace BrailleTranslator.Desktop
         {
             SimpleIoc.Default.Register<IMapper, Mapper>();
             SimpleIoc.Default.Register<IWindowService, WindowService>();
+            SimpleIoc.Default.Register<IFileService, FileService>();
             SimpleIoc.Default.Register<IComponentFactory, ComponentFactory>();
-            SimpleIoc.Default.Register<FileMenuViewModel>();
             SimpleIoc.Default.Register<EditMenuViewModel>();
 
             SimpleIoc.Default.Register(c =>
@@ -34,6 +34,10 @@ namespace BrailleTranslator.Desktop
             .Register(c =>
             {
                 return new ToolbarViewModel(c.GetInstance<FileMenuViewModel>(), c.GetInstance<EditMenuViewModel>());
+            })
+            .Register(c =>
+            {
+                return new FileMenuViewModel(c.GetInstance<IFileService>());
             });
 
             Resources.Add("ViewModelLocator", SimpleIoc.Default.GetInstance<ViewModelLocator>());
