@@ -60,7 +60,7 @@
                                             <Setter.Value>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <winControls:EditTextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="2,0,0,0" />
+                                                        <winControls:EditTextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </Setter.Value>
