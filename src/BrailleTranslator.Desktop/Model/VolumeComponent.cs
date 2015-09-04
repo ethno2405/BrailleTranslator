@@ -36,6 +36,14 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public override string CreateChildGestureText
+        {
+            get
+            {
+                return "Ctrl + Shift + Enter";
+            }
+        }
+
         protected Volume Volume
         {
             get

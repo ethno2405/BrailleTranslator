@@ -28,6 +28,14 @@ namespace BrailleTranslator.Desktop.Model
             SubscribeForMessages();
         }
 
+        public override string CreateChildGestureText
+        {
+            get
+            {
+                return "Ctrl + Enter";
+            }
+        }
+
         public override string CreateChildText
         {
             get

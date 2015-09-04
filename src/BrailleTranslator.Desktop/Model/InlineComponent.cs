@@ -37,6 +37,14 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public override string CreateChildGestureText
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
         protected override TextElement Payload
         {
             get

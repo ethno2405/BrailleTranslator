@@ -16,8 +16,6 @@ namespace BrailleTranslator.Desktop.Model
     {
         private Component _parent;
 
-
-
         public Component()
         {
             RegisterCommands();
@@ -68,6 +66,8 @@ namespace BrailleTranslator.Desktop.Model
         }
 
         public virtual string CreateChildText { get; } = "New component";
+
+        public abstract string CreateChildGestureText { get; }
 
         public virtual bool CanCreateChildComponent
         {
