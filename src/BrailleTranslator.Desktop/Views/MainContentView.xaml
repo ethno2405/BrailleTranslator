@@ -73,11 +73,15 @@
                                     <TextBlock Text="{Binding Title}">
                                         <TextBlock.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Header="{Binding CreateChildText}" Command="{Binding CreateChildCommand, Mode=OneWay}" Visibility="{Binding CanCreateChildComponent, Converter={StaticResource BooleanToVisibilityConverter}}" InputGestureText="{Binding CreateChildGestureText}" />
+                                                <MenuItem Header="{Binding CreateChildText}"
+                                                          Command="{Binding CreateChildCommand, Mode=OneWay}"
+                                                          Visibility="{Binding CanCreateChildComponent, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                          InputGestureText="{Binding CreateChildGestureText}" />
                                                 <MenuItem Header="Delete" Command="{Binding DeleteComponentCommand, Mode=OneWay}" InputGestureText="Del" />
                                                 <MenuItem Header="Rename" Command="{Binding RenameCommand, Mode=OneWay}" InputGestureText="F2" />
                                                 <MenuItem Header="Move up" Command="{Binding MoveUpCommand,Mode=OneWay}" InputGestureText="Ctrl + Up" />
                                                 <MenuItem Header="Move down" Command="{Binding MoveDownCommand, Mode=OneWay}" InputGestureText="Ctrl + Down" />
+                                                <MenuItem Header="Combine" Command="{Binding CombineCommand, Mode=OneWay}" />
                                             </ContextMenu>
                                         </TextBlock.ContextMenu>
                                     </TextBlock>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Messages;
@@ -115,6 +116,11 @@ namespace BrailleTranslator.Desktop.Model
             Volume.Blocks.Add(section);
 
             return section;
+        }
+
+        protected override void CombineComponents(IEnumerable<Component> components)
+        {
+            throw new NotImplementedException();
         }
 
         private void SubscribeForMessages()

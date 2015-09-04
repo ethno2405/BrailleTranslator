@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Messages;
@@ -115,6 +117,19 @@ namespace BrailleTranslator.Desktop.Model
             Section.Blocks.Add(paragraph);
 
             return paragraph;
+        }
+
+        protected override void CombineComponents(IEnumerable<Component> components)
+        {
+            var text = new List<string>();
+
+            components.OfType<ParagraphComponent>().ForEach(c =>
+            {
+                text.Add(new TextRange(c.InlineComponent.Inline.ContentStart, c.InlineComponent.Inline.ContentEnd).Text);
+                c.Delete();
+            });
+
+            Section.Blocks.Add(new Paragraph(new Run(string.Join(" ", text))));
         }
 
         private void SubscribeForMessages()

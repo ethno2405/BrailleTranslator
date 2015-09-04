@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Documents;
 
 namespace BrailleTranslator.Desktop.Model
@@ -45,6 +46,11 @@ namespace BrailleTranslator.Desktop.Model
         protected override void PopulateChildren(TextElement textElement)
         {
             throw new NotSupportedException();
+        }
+
+        protected override void CombineComponents(IEnumerable<Component> components)
+        {
+            throw new NotImplementedException();
         }
     }
 }

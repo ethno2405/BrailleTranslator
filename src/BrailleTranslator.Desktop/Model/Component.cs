@@ -38,6 +38,8 @@ namespace BrailleTranslator.Desktop.Model
 
         public ICommand CreateChildCommand { get; private set; }
 
+        public ICommand CombineCommand { get; private set; }
+
         public virtual ObservableCollection<Component> Children { get; private set; } = new ObservableCollection<Component>();
 
         public Component Parent
@@ -183,6 +185,8 @@ namespace BrailleTranslator.Desktop.Model
 
         protected abstract TextElement CreateChildElement();
 
+        protected abstract void CombineComponents(IEnumerable<Component> components);
+
         private void RemoveDeletedElement(IEnumerable<TextElement> textElements)
         {
             var childrenToRemove = Children.Where(x => !textElements.Contains(x.Payload));
@@ -220,12 +224,28 @@ namespace BrailleTranslator.Desktop.Model
             }), Tokens.NewComponent);
         }
 
+        private void SendCombineComponentsMessage()
+        {
+            var selectedComponents = Parent.Children.Where(x => x.IsSelected).ToArray();
+            if (!selectedComponents.Any()) return;
+
+            Messenger.Default.Send(new GenericMessage<IEnumerable<Component>>(this, Parent, selectedComponents));
+        }
+
+        private void ReceiveCombineComponentsMessage(GenericMessage<IEnumerable<Component>> message)
+        {
+            if (message.Target != this) return;
+
+            CombineComponents(message.Content);
+        }
+
         private void RegisterCommands()
         {
             DeleteComponentCommand = new RelayCommand(Delete, CanDelete);
             MoveUpCommand = new RelayCommand(MoveUp, CanMoveUp);
             MoveDownCommand = new RelayCommand(MoveDown, CanMoveDown);
             CreateChildCommand = new RelayCommand(CreateChild, () => CanCreateChildComponent);
+            CombineCommand = new RelayCommand(SendCombineComponentsMessage);
         }
 
         private void SubscribeForMessages()
@@ -233,6 +253,7 @@ namespace BrailleTranslator.Desktop.Model
             Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Delete, ModifierKeys.None), m => Delete());
             Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Up, ModifierKeys.Control), m => MoveUp());
             Messenger.Default.Register<KeyShortcutMessage>(this, KeyShortcutMessageToken.Create(Key.Down, ModifierKeys.Control), m => MoveDown());
+            Messenger.Default.Register<GenericMessage<IEnumerable<Component>>>(this, ReceiveCombineComponentsMessage);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Documents;
 
@@ -115,6 +116,11 @@ namespace BrailleTranslator.Desktop.Model
         protected override TextElement CreateChildElement()
         {
             throw new NotSupportedException();
+        }
+
+        protected override void CombineComponents(IEnumerable<Component> components)
+        {
+            throw new NotImplementedException();
         }
 
         private void InitializeInlineComponent(Paragraph paragraph)
