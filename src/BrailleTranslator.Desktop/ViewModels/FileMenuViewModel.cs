@@ -1,11 +1,11 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Input;
-using BrailleTranslator.Desktop.Messages;
+﻿using BrailleTranslator.Desktop.Messages;
 using BrailleTranslator.Desktop.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
+using System;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BrailleTranslator.Desktop.ViewModels
 {
@@ -67,20 +67,12 @@ namespace BrailleTranslator.Desktop.ViewModels
             var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
 
             dialog.Filter = "Braille Files (*.brf)|*.brf|Text Files (*.txt)|*.txt";
-            //dialog.ShowDialog();
-            //check result of the dialog
+
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 SelectedPath = dialog.FileName;
                 var fileAsString = _fileService.Open(SelectedPath);
             }
-
-            //how to find BindableRichTextBox??????
-            //how to rich UI element via viewmodel???
-
-            //Controls.BindableRichTextBox rtb = new Controls.BindableRichTextBox();
-            //rtb = App.Current.Windows[0].FindName("TextContainer") as Controls.BindableRichTextBox;
-            //rtb.Document.Blocks.Add(new Volume(new Section(new Paragraph(new Run(aaa)))));
         }
 
         private void ExecuteSaveFileDialog()
@@ -92,14 +84,13 @@ namespace BrailleTranslator.Desktop.ViewModels
             {
                 SelectedPath = dialog.FileName;
                 var content = CheckFileValidation();
-                _fileService.Save(content, SelectedPath);
+                _fileService.Save(SelectedPath, content);
             }
         }
 
         private string CheckFileValidation()
         {
-            //how to find BindableRichTextBox??????
-            throw new NotImplementedException();
+            return string.Empty;
         }
 
         private void ExecutePrintFileDialog()
