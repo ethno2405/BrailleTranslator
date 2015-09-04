@@ -79,7 +79,7 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        protected static bool IsMoving { get; set; }
+        protected static bool Freeze { get; set; }
 
         protected virtual TextPointer ContentStart
         {
@@ -138,7 +138,7 @@ namespace BrailleTranslator.Desktop.Model
 
         protected void PopulateChildren(IEnumerable<TextElement> textElements)
         {
-            if (IsMoving) return;
+            if (Freeze) return;
 
             if (!textElements.Any()) return;
 
@@ -226,7 +226,7 @@ namespace BrailleTranslator.Desktop.Model
 
         private void SendCombineComponentsMessage()
         {
-            var selectedComponents = Parent.Children.Where(x => x.IsSelected).ToArray();
+            var selectedComponents = Parent.Children.Where(x => x.IsSelected);
             if (!selectedComponents.Any()) return;
 
             Messenger.Default.Send(new GenericMessage<IEnumerable<Component>>(this, Parent, selectedComponents));

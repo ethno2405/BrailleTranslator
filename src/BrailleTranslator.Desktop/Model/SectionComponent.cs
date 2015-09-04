@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using BrailleTranslator.Desktop.Messages;
@@ -85,13 +84,13 @@ namespace BrailleTranslator.Desktop.Model
             var volume = Section.Parent as Volume;
             var previous = Section.PreviousBlock;
 
-            IsMoving = true;
+            Freeze = true;
 
             volume.Blocks.Remove(Block);
             volume.Blocks.InsertBefore(previous, Section);
 
             base.MoveUp();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override void MoveDown()
@@ -101,13 +100,13 @@ namespace BrailleTranslator.Desktop.Model
             var volume = Section.Parent as Volume;
             var next = Section.NextBlock;
 
-            IsMoving = true;
+            Freeze = true;
 
             volume.Blocks.Remove(Block);
             volume.Blocks.InsertAfter(next, Section);
 
             base.MoveDown();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override TextElement CreateChildElement()
@@ -121,15 +120,6 @@ namespace BrailleTranslator.Desktop.Model
 
         protected override void CombineComponents(IEnumerable<Component> components)
         {
-            var text = new List<string>();
-
-            components.OfType<ParagraphComponent>().ForEach(c =>
-            {
-                text.Add(new TextRange(c.InlineComponent.Inline.ContentStart, c.InlineComponent.Inline.ContentEnd).Text);
-                c.Delete();
-            });
-
-            Section.Blocks.Add(new Paragraph(new Run(string.Join(" ", text))));
         }
 
         private void SubscribeForMessages()

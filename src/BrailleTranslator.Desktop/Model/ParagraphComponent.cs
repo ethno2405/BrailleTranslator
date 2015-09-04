@@ -61,36 +61,56 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
+        public void InitializeInlineComponent(Paragraph paragraph)
+        {
+            var inline = paragraph.Inlines.FirstInline;
+
+            if (inline == null)
+            {
+                InlineComponent = null;
+                return;
+            }
+
+            if (InlineComponent == null)
+            {
+                InlineComponent = ComponentFactory.CreateComponent(inline) as InlineComponent;
+                InlineComponent.Parent = this;
+                return;
+            }
+
+            InlineComponent.Inline = inline;
+        }
+
         protected override void MoveUp()
         {
             if (!CanMoveUp()) return;
 
+            Freeze = true;
+
             var section = Paragraph.Parent as Section;
             var previous = Paragraph.PreviousBlock;
-
-            IsMoving = true;
 
             section.Blocks.Remove(Block);
             section.Blocks.InsertBefore(previous, Paragraph);
 
             base.MoveUp();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override void MoveDown()
         {
             if (!CanMoveDown()) return;
 
+            Freeze = true;
+
             var section = Paragraph.Parent as Section;
             var next = Paragraph.NextBlock;
-
-            IsMoving = true;
 
             section.Blocks.Remove(Block);
             section.Blocks.InsertAfter(next, Paragraph);
 
             base.MoveDown();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override void RemoveChild(Component component)
@@ -121,26 +141,6 @@ namespace BrailleTranslator.Desktop.Model
         protected override void CombineComponents(IEnumerable<Component> components)
         {
             throw new NotImplementedException();
-        }
-
-        private void InitializeInlineComponent(Paragraph paragraph)
-        {
-            var inline = paragraph.Inlines.FirstInline;
-
-            if (inline == null)
-            {
-                InlineComponent = null;
-                return;
-            }
-
-            if (InlineComponent == null)
-            {
-                InlineComponent = ComponentFactory.CreateComponent(inline) as InlineComponent;
-                InlineComponent.Parent = this;
-                return;
-            }
-
-            InlineComponent.Inline = inline;
         }
     }
 }

@@ -84,13 +84,13 @@ namespace BrailleTranslator.Desktop.Model
             var document = Volume.Parent as FlowDocument;
             var previous = Volume.PreviousBlock;
 
-            IsMoving = true;
+            Freeze = true;
 
             document.Blocks.Remove(Block);
             document.Blocks.InsertBefore(previous, Volume);
 
             base.MoveUp();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override void MoveDown()
@@ -100,13 +100,13 @@ namespace BrailleTranslator.Desktop.Model
             var document = Volume.Parent as FlowDocument;
             var next = Volume.NextBlock;
 
-            IsMoving = true;
+            Freeze = true;
 
             document.Blocks.Remove(next);
             document.Blocks.InsertBefore(Volume, next);
 
             base.MoveDown();
-            IsMoving = false;
+            Freeze = false;
         }
 
         protected override TextElement CreateChildElement()

@@ -81,7 +81,6 @@
                                                 <MenuItem Header="Rename" Command="{Binding RenameCommand, Mode=OneWay}" InputGestureText="F2" />
                                                 <MenuItem Header="Move up" Command="{Binding MoveUpCommand,Mode=OneWay}" InputGestureText="Ctrl + Up" />
                                                 <MenuItem Header="Move down" Command="{Binding MoveDownCommand, Mode=OneWay}" InputGestureText="Ctrl + Down" />
-                                                <MenuItem Header="Combine" Command="{Binding CombineCommand, Mode=OneWay}" />
                                             </ContextMenu>
                                         </TextBlock.ContextMenu>
                                     </TextBlock>
