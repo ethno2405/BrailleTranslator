@@ -14,16 +14,25 @@ namespace BrailleTranslator.Desktop.ViewModels
 
         private IWindowService _windowService;
 
-        public MainContentViewModel(IWindowService windowService)
+        private ITranslationService _translationService;
+
+        public MainContentViewModel(IWindowService windowService, ITranslationService translationService)
         {
             if (windowService == null) throw new ArgumentNullException(nameof(windowService));
+            if (translationService == null) throw new ArgumentNullException(nameof(translationService));
 
             _windowService = windowService;
+            _translationService = translationService;
 
             _project = new Project();
             _project.CreateDocument("Document");
 
             MessengerInstance.Register<NotificationMessageAction<string>>(this, Tokens.NewComponent, m => OpenNewComponentDialog(m.Notification, m.Execute));
+            MessengerInstance.Register<GenericMessage<string>>(this, Tokens.Translation, m =>
+            {
+                var result = _translationService.TranslateToBraille(m.Content);
+                _project.CurrentDocument.FlowDocument.Preview = result;
+            });
         }
 
         public Project Project

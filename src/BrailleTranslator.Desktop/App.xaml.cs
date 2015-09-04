@@ -16,6 +16,7 @@ namespace BrailleTranslator.Desktop
             SimpleIoc.Default.Register<IMapper, Mapper>();
             SimpleIoc.Default.Register<IWindowService, WindowService>();
             SimpleIoc.Default.Register<IFileService, FileService>();
+            SimpleIoc.Default.Register<ITranslationService, TranslationService>();
             SimpleIoc.Default.Register<IComponentFactory, ComponentFactory>();
             SimpleIoc.Default.Register<EditMenuViewModel>();
 
@@ -29,7 +30,7 @@ namespace BrailleTranslator.Desktop
             })
             .Register(c =>
             {
-                return new MainContentViewModel(c.GetInstance<IWindowService>());
+                return new MainContentViewModel(c.GetInstance<IWindowService>(), c.GetInstance<ITranslationService>());
             })
             .Register(c =>
             {

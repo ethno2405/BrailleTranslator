@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using BrailleTranslator.Desktop.Messages;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BrailleTranslator.Desktop.Model
@@ -17,10 +19,18 @@ namespace BrailleTranslator.Desktop.Model
 
         private TextSelection _selection;
 
+        private string _preview;
+
+        private FontFamily _previewFont;
+
+        private FontFamily _brailleFont = new FontFamily(new Uri("pack://application:,,,/BrailleTranslator.Desktop;component/fonts/"), "./#Braille Normal");
+
         public FlowDocumentWrapper()
         {
             DocumentRoot = this;
             SubscribeForMessages();
+
+            TranslateToBraille = new RelayCommand(ExecuteTranslateToBrailleCommand);
         }
 
         public FlowDocumentWrapper(string title) : base(title)
@@ -29,7 +39,11 @@ namespace BrailleTranslator.Desktop.Model
 
             DocumentRoot = this;
             SubscribeForMessages();
+
+            TranslateToBraille = new RelayCommand(ExecuteTranslateToBrailleCommand);
         }
+
+        public ICommand TranslateToBraille { get; private set; }
 
         public FlowDocument Document
         {
@@ -44,7 +58,20 @@ namespace BrailleTranslator.Desktop.Model
                 PopulateChildren(_document.Blocks);
 
                 RaisePropertyChanged(nameof(Document));
-                RaisePropertyChanged(nameof(PlainText));
+                PreviewFont = _brailleFont;
+                Preview = new TextRange(_document.ContentStart, _document.ContentEnd).Text;
+            }
+        }
+
+        public FontFamily PreviewFont
+        {
+            get
+            {
+                return _previewFont;
+            }
+            set
+            {
+                Set(nameof(PreviewFont), ref _previewFont, value);
             }
         }
 
@@ -56,11 +83,15 @@ namespace BrailleTranslator.Desktop.Model
             }
         }
 
-        public string PlainText
+        public string Preview
         {
             get
             {
-                return new TextRange(_document.ContentStart, _document.ContentEnd).Text;
+                return _preview;
+            }
+            set
+            {
+                Set(nameof(Preview), ref _preview, value);
             }
         }
 
@@ -168,6 +199,12 @@ namespace BrailleTranslator.Desktop.Model
         protected override void CombineComponents(IEnumerable<Component> components)
         {
             throw new NotImplementedException();
+        }
+
+        private void ExecuteTranslateToBrailleCommand()
+        {
+            Messenger.Default.Send(new GenericMessage<string>(new TextRange(Document.ContentStart, Document.ContentEnd).Text), Tokens.Translation);
+            PreviewFont = new FontFamily("Segoe UI");
         }
 
         private void SubscribeForMessages()
